@@ -2,8 +2,8 @@
 
 #define NULL ((void *)0)
 
-typedef struct listnode_t {
-    struct listnode_t *next;
+typedef struct ListNode {
+    struct ListNode *next;
     void *data;
 } ListNode;
 
@@ -12,7 +12,7 @@ typedef struct listnode_t {
  * @attention Do **NOT** deallocate data in a list
  * @param length Size of the list (Starts at one)
  */
-typedef struct list_t {
+typedef struct {
     int length;
     ListNode *first_node;
     ListNode *last_node;
