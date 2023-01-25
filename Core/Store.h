@@ -5,7 +5,18 @@
 #include "lib/List.h"
 
 typedef struct {
-    List *items;
+    List *Components;
+    List *Archetypes;
+    List *Entities;
 } Store;
 
-extern List *ArchetypeStore;
+/**
+ * Create a store
+ */
+Store *store_create();
+
+/**
+ * Destroy a store
+ * @attention This function will destroy all game data contained in the store
+ */
+void store_destroy(Store *s);

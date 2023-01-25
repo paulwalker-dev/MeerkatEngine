@@ -17,3 +17,16 @@ void archetype_destroy(Archetype *a)
     list_free(a->components);
     free(a);
 }
+
+Component *archetype_get(Archetype *a, char *name)
+{
+    int i;
+    Component *c;
+
+    for (i = 0; i < a->components->length; ++i) {
+        c = list_get(a->components, i);
+        if (c->name == name)
+            return c;
+    }
+    return NULL;
+}
