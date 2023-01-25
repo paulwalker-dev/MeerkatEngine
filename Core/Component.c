@@ -46,3 +46,8 @@ void component_data_destroy(Component *c, ComponentData *cd)
     c->data_destroy(cd->data);
     free(cd);
 }
+
+void component_cleanup(void *c)
+{
+    component_destroy(c);
+}

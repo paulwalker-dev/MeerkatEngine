@@ -1,35 +1,28 @@
 #include "EngineCore.h"
-
 #include "Components/Position.h"
 #include "Components/Player.h"
 
 int main()
 {
+    Store *s;
     Component *position_c;
     Component *player_c;
     Archetype *player_a;
     Entity *player_e;
 
-    // Component initialization
-    position_c = component_create("Position");
-    position_c->data_init = position_cd_create;
+    s = store_create();
 
-    player_c = component_create("Player");
-    player_c->data_init = player_cd_create;
+    // Component initialization
+    position_c = store_component(s, c_position_create);
+    player_c   = store_component(s, c_player_create);
 
     // Archetype initialization
     player_a = archetype_create("Player");
+    list_append(s->archetypes, player_a);
 
     // Entity initialization
     player_e = entity_create(player_a);
+    list_append(s->entities, player_e);
 
-    // Entity deallocation
-    entity_destroy(player_e);
-
-    // Archetype deallocation
-    archetype_destroy(player_a);
-
-    // Component deallocation
-    component_destroy(position_c);
-    component_destroy(player_c);
+    store_destroy(s);
 }

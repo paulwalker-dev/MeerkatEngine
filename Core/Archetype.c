@@ -30,3 +30,8 @@ Component *archetype_get(Archetype *a, char *name)
     }
     return NULL;
 }
+
+void archetype_cleanup(void *a)
+{
+    archetype_destroy(a);
+}

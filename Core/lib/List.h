@@ -35,6 +35,11 @@ void list_destroy(List *l);
 void list_free(List *l);
 
 /**
+ * Destory a list. Deallocate data with specified function
+ */
+void list_cleanup(List *l, void (* destroy)(void *));
+
+/**
  * Get the element at the specified index
  * @param index Index of element (Starts at zero)
  * @returns If not null, a pointer to the data

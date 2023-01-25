@@ -23,3 +23,10 @@ void archetype_destroy(Archetype *a);
  * @returns If not null, a pointer to the component
  */
 Component *archetype_get(Archetype *a, char *name);
+
+/**
+ * Destroy an archetype, using void pointer
+ * @attention This function should **ONLY** be used when absolutely necessary
+ * @param e The pointer to the archetype to deallocate
+ */
+void archetype_cleanup(void *a);

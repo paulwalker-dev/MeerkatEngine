@@ -37,3 +37,10 @@ ComponentData *component_data_create(Component *c);
  * @param data Data to deallocate
  */
 void component_data_destroy(Component *c, ComponentData *cd);
+
+/**
+ * Destroy an component, using void pointer
+ * @attention This function should **ONLY** be used when absolutely necessary
+ * @param e The pointer to the component to deallocate
+ */
+void component_cleanup(void *c);

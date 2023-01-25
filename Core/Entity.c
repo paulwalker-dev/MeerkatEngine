@@ -42,6 +42,11 @@ void entity_destroy(Entity *e)
 
         component_data_destroy(c, cd);
     }
-    free(e->data);
+    list_destroy(e->data);
     free(e);
+}
+
+void entity_cleanup(void *e)
+{
+    entity_destroy(e);
 }

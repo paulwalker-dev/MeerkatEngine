@@ -28,6 +28,18 @@ void list_free(List *l)
     free(l);
 }
 
+void list_cleanup(List *l, void (* destroy)(void *))
+{
+    void *o;
+
+    while (l->length) {
+        o = list_pop(l, 0);
+        if (o != NULL)
+            destroy(o);
+    }
+    list_destroy(l);
+}
+
 ListNode *list_get_node(List *l, int index)
 {
     ListNode *node;

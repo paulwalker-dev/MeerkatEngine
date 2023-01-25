@@ -5,4 +5,6 @@ typedef struct {
     char *player_name;
 } PlayerComponent;
 
-void *player_cd_create();
+void *cd_player_create();
+
+Component *c_player_create();

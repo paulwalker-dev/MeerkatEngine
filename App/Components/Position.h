@@ -5,4 +5,6 @@ typedef struct {
     int x, y;
 } PositionComponent;
 
-void *position_cd_create();
+void *cd_position_create();
+
+Component *c_position_create();
