@@ -12,8 +12,16 @@ typedef struct {
     void (* data_destroy)(void *cd);
 } Component;
 
+/**
+ * Default function for component data creation
+ * @attention This will crash your program if it isn't replaced per component
+ */
 void *default_cd_create();
 
+/**
+ * Default function for component data destrution
+ * @attention Change me if component data contains pointers
+ */
 void default_cd_destroy(void *cd);
 
 /**
@@ -36,6 +44,7 @@ void component_cleanup(void *c);
 
 /**
  * Find a component in a given list via name
+ * @returns If not NULL, a pointer to the component
  */
 Component *component_find(List *l, char *name);
 
@@ -49,3 +58,9 @@ ComponentData *component_data_create(Component *c);
  * @param data Data to deallocate
  */
 void component_data_destroy(Component *c, ComponentData *cd);
+
+/**
+ * Find component data in list by name
+ * @returns If not NULL, a pointer to the data
+ */
+ComponentData *component_data_find(List *l, char *name);

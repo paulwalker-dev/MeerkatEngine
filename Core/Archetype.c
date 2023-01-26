@@ -1,5 +1,6 @@
 #include "Archetype.h"
 #include <stdlib.h>
+#include <string.h>
 
 Archetype *archetype_create(char *name)
 {
@@ -30,7 +31,9 @@ Archetype *archetype_find(List *l, char *name)
 
     for (i = 0; i < l->length; ++i) {
         a = list_get(l, i);
-        if (a->name == name)
+
+        // Remember strcmp returns 0 when identical
+        if (!strcmp(a->name, name))
             return a;
     }
     return NULL;

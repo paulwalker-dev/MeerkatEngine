@@ -24,6 +24,17 @@ void store_destroy(Store *s)
     free(s);
 }
 
+void store_update(Store *s)
+{
+    int i;
+    Task *t;
+
+    for (i = 0; i < s->tasks->length; ++i) {
+        t = list_get(s->tasks, i);
+        task_run(t, s->entities);
+    }
+}
+
 Component *store_component(Store *s, Component *(* init_c)())
 {
     Component *c;

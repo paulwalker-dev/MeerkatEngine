@@ -24,6 +24,11 @@ Store *store_create();
 void store_destroy(Store *store);
 
 /**
+ * Update data in entities using tasks
+ */
+void store_update(Store *s);
+
+/**
  * Create component to store, created via function pointer
  * @param init_c Function to create component
  */

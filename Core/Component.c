@@ -1,11 +1,11 @@
 #include "Component.h"
-#include <stdio.h>
+#include "lib/Panic.h"
 #include <stdlib.h>
+#include <string.h>
 
 void *default_cd_create()
 {
-    printf("ERROR: Default Component Data function used!\n");
-    exit(1);
+    panic("Default Component Data function used!\n");
 }
 
 void default_cd_destroy(void *cd)
@@ -25,7 +25,9 @@ Component *component_find(List *l, char *name)
 
     for (i = 0; i < l->length; ++i) {
         c = list_get(l, i);
-        if (c->name == name)
+
+        // Remember strcmp returns 0 when identical
+        if (!strcmp(c->name, name))
             return c;
     }
     return NULL;
@@ -63,4 +65,19 @@ void component_data_destroy(Component *c, ComponentData *cd)
 {
     c->data_destroy(cd->data);
     free(cd);
+}
+
+ComponentData *component_data_find(List *l, char *name)
+{
+    int i;
+    ComponentData *cd;
+
+    for (i = 0; i < l->length; ++i) {
+        cd = list_get(l, i);
+
+        // Remember strcmp returns 0 when identical
+        if (!strcmp(cd->name, name))
+            return cd;
+    }
+    return NULL;
 }

@@ -3,8 +3,6 @@
 #include "Component.h"
 #include "lib/List.h"
 
-/**
- */
 typedef struct {
     int id;
     Archetype *archetype;
