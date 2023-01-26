@@ -11,7 +11,7 @@ workspace "MeerkatEngine"
         optimize "On"
 
 project "EngineCore"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C"
 
     files {

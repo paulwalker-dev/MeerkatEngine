@@ -18,20 +18,30 @@ void archetype_destroy(Archetype *a)
     free(a);
 }
 
-Component *archetype_get(Archetype *a, char *name)
+void archetype_cleanup(void *a)
+{
+    archetype_destroy(a);
+}
+
+Archetype *archetype_find(List *l, char *name)
 {
     int i;
-    Component *c;
+    Archetype *a;
 
-    for (i = 0; i < a->components->length; ++i) {
-        c = list_get(a->components, i);
-        if (c->name == name)
-            return c;
+    for (i = 0; i < l->length; ++i) {
+        a = list_get(l, i);
+        if (a->name == name)
+            return a;
     }
     return NULL;
 }
 
-void archetype_cleanup(void *a)
+void archetype_append(Archetype *a, Component *c)
 {
-    archetype_destroy(a);
+    list_append(a->components, c);
+}
+
+Component *archetype_get(Archetype *a, char *name)
+{
+    return component_find(a->components, name);
 }

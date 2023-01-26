@@ -3,48 +3,58 @@
 
 Store *store_create()
 {
-    Store *store;
+    Store *s;
 
-    store = malloc(sizeof(Store));
-    store->components = list_create();
-    store->archetypes = list_create();
-    store->entities = list_create();
+    s = malloc(sizeof(Store));
+    s->components = list_create();
+    s->archetypes = list_create();
+    s->entities = list_create();
 
-    return store;
+    return s;
 }
 
-void store_destroy(Store *store)
+void store_destroy(Store *s)
 {
-    list_cleanup(store->entities, entity_cleanup);
-    list_cleanup(store->archetypes, archetype_cleanup);
-    list_cleanup(store->components, component_cleanup);
+    list_cleanup(s->entities, entity_cleanup);
+    list_cleanup(s->archetypes, archetype_cleanup);
+    list_cleanup(s->tasks, task_cleanup);
+    list_cleanup(s->components, component_cleanup);
 
-    free(store);
+    free(s);
 }
 
-Component *store_component(Store *store, Component *(* init_c)())
+Component *store_component(Store *s, Component *(* init_c)())
 {
     Component *c;
 
     c = init_c();
-    list_append(store->components, c);
+    list_append(s->components, c);
     return c;
 }
 
-Archetype *store_archetype(Store *store, Archetype *(* init_a)())
+Archetype *store_archetype(Store *s, Archetype *(* init_a)(List *c))
 {
     Archetype *a;
 
-    a = init_a();
-    list_append(store->archetypes, a);
+    a = init_a(s->components);
+    list_append(s->archetypes, a);
     return a;
 }
 
-Entity *store_entity(Store *store, Entity *(* init_e)())
+Entity *store_entity(Store *s, Entity *(* init_e)(List *a))
 {
     Entity *e;
 
-    e = init_e();
-    list_append(store->entities, e);
+    e = init_e(s->archetypes);
+    list_append(s->entities, e);
     return e;
+}
+
+Task *store_task(Store *s, Task *(* init_t)(List *c))
+{
+    Task *t;
+
+    t = init_t(s->components);
+    list_append(s->tasks, t);
+    return t;
 }

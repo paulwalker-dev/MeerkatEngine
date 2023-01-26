@@ -13,6 +13,24 @@ void default_cd_destroy(void *cd)
     free(cd);
 }
 
+void component_cleanup(void *c)
+{
+    component_destroy(c);
+}
+
+Component *component_find(List *l, char *name)
+{
+    int i;
+    Component *c;
+
+    for (i = 0; i < l->length; ++i) {
+        c = list_get(l, i);
+        if (c->name == name)
+            return c;
+    }
+    return NULL;
+}
+
 Component *component_create(char *name)
 {
     Component *c;
@@ -45,9 +63,4 @@ void component_data_destroy(Component *c, ComponentData *cd)
 {
     c->data_destroy(cd->data);
     free(cd);
-}
-
-void component_cleanup(void *c)
-{
-    component_destroy(c);
 }
