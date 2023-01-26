@@ -7,6 +7,7 @@ Store *store_create()
 
     s = malloc(sizeof(Store));
     s->components = list_create();
+    s->tasks = list_create();
     s->archetypes = list_create();
     s->entities = list_create();
 

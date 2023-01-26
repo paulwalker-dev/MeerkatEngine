@@ -20,7 +20,7 @@ Entity *entity_create(Archetype *a)
     i = 0;
     components = e->archetype->components;
     while ((c = list_get(components, i++)) != NULL) {
-        list_append(components, component_data_create(c));
+        list_append(e->data, component_data_create(c));
     }
 
     return e;
