@@ -3,35 +3,48 @@
 
 Store *store_create()
 {
-    Store *s;
+    Store *store;
 
-    s = malloc(sizeof(Store));
-    s->components = list_create();
-    s->archetypes = list_create();
-    s->entities = list_create();
+    store = malloc(sizeof(Store));
+    store->components = list_create();
+    store->archetypes = list_create();
+    store->entities = list_create();
 
-    return s;
+    return store;
 }
 
-void store_destroy(Store *s)
+void store_destroy(Store *store)
 {
-    list_cleanup(s->entities, entity_cleanup);
-    list_cleanup(s->archetypes, archetype_cleanup);
-    list_cleanup(s->components, component_cleanup);
+    list_cleanup(store->entities, entity_cleanup);
+    list_cleanup(store->archetypes, archetype_cleanup);
+    list_cleanup(store->components, component_cleanup);
 
-    free(s);
+    free(store);
 }
 
-Component *store_component(Store *s, Component *(* init_c)())
+Component *store_component(Store *store, Component *(* init_c)())
 {
     Component *c;
 
     c = init_c();
-    list_append(s->components, c);
-
+    list_append(store->components, c);
     return c;
 }
 
-Archetype *store_archetype(Store *s, Archetype *(* init_a)());
+Archetype *store_archetype(Store *store, Archetype *(* init_a)())
+{
+    Archetype *a;
 
-Entity *store_entity(Store *s, Entity *(* init_e)());
+    a = init_a();
+    list_append(store->archetypes, a);
+    return a;
+}
+
+Entity *store_entity(Store *store, Entity *(* init_e)())
+{
+    Entity *e;
+
+    e = init_e();
+    list_append(store->entities, e);
+    return e;
+}
