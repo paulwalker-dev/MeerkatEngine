@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 typedef struct {
-    int x, y;
+    int x;
+    int y;
 } PositionComponent;
 
 void *cd_position_create()
@@ -36,24 +37,30 @@ Archetype *a_cube_create(List *c)
     return a;
 }
 
+Entity *e_cube_create(List *a)
+{
+    Entity *e;
+    Archetype *cube_a;
+
+    cube_a = archetype_find(a, "Cube");
+    e = entity_create(cube_a);
+    return e;
+}
+
 int main()
 {
     Store *s;
-    Component *position_c;
-    Archetype *cube_a;
-    Entity *cube_e;
 
     s = store_create();
 
     // Component initialization
-    position_c = store_component(s, c_position_create);
+    store_component(s, c_position_create);
 
     // Archetype initialization
-    cube_a = store_archetype(s, a_cube_create);
+    store_archetype(s, a_cube_create);
 
     // Entity initialization
-    cube_e = entity_create(cube_a);
-    list_append(s->entities, cube_e);
+    store_entity(s, e_cube_create);
 
     store_destroy(s);
 }
