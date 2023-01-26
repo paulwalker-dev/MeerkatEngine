@@ -1,5 +1,5 @@
 workspace "MeerkatEngine"
-    configurations { "Debug", "Release", "Testing" }
+    configurations { "Debug", "Release" }
     location "build"
 
     filter "configurations:Debug"
