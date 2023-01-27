@@ -1,4 +1,5 @@
 #include "EngineCore.h"
+#include "EngineMantle.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,26 +27,28 @@ Component *c_position_create()
     return c;
 }
 
-Archetype *a_cube_create(List *c)
+typedef struct {
+    int x;
+    int y;
+} VelocityComponent;
+
+void *cd_velocity_create()
 {
-    Archetype *a;
-    Component *position_c;
+    VelocityComponent *cd;
 
-    position_c = component_find(c, "Position");
-
-    a = archetype_create("Cube");
-    archetype_append(a, position_c);
-    return a;
+    cd = malloc(sizeof(VelocityComponent));
+    cd->x = 0;
+    cd->y = 0;
+    return cd;
 }
 
-Entity *e_cube_create(List *a)
+Component *c_velocity_create()
 {
-    Entity *e;
-    Archetype *cube_a;
+    Component *c;
 
-    cube_a = archetype_find(a, "Cube");
-    e = entity_create(cube_a);
-    return e;
+    c = component_create("Velocity");
+    c->data_init = cd_velocity_create;
+    return c;
 }
 
 void t_move_run(List *l)
@@ -56,59 +59,34 @@ void t_move_run(List *l)
     position_cd->y--;
 }
 
-Task *t_move_create(List *c)
-{
-    Component *position_c;
-    Task *t;
-
-    position_c = component_find(c, "Position");
-
-    t = task_create(t_move_run);
-    task_append(t, position_c);
-    return t;
-}
-
 void t_info_run(List *l)
 {
     TASK_CD(Position, position_cd);
+    TASK_CD(Velocity, velocity_cd);
 
-    printf("x: %d, y: %d\n",
+    printf("Position: { x: %d, y: %d }\n",
            position_cd->x,
            position_cd->y);
-}
 
-Task *t_info_create(List *c)
-{
-    Component *position_c;
-    Task *t;
-
-    position_c = component_find(c, "Position");
-
-    t = task_create(t_info_run);
-    task_append(t, position_c);
-    return t;
+    printf("Velocity: { x: %d, y: %d }\n",
+           velocity_cd->x,
+           velocity_cd->y);
 }
 
 int main()
 {
-    Store *s;
+    Box *b;
 
-    s = store_create();
+    b = box_create();
 
-    // Component initialization
-    store_component(s, c_position_create);
+    box_component(b, c_position_create);
+    box_component(b, c_velocity_create);
+    box_archetype(b, "Cube", "Position", "Velocity", 0);
+    box_entity(b, "Cube");
+    box_task(b, t_move_run, "Position", 0);
+    box_task(b, t_info_run, "Position", "Velocity", 0);
 
-    // Archetype initialization
-    store_archetype(s, a_cube_create);
+    box_update(b);
 
-    // Entity initialization
-    store_entity(s, e_cube_create);
-
-    // Task initialization
-    store_task(s, t_move_create);
-    store_task(s, t_info_create);
-
-    store_update(s);
-
-    store_destroy(s);
+    box_destroy(b);
 }

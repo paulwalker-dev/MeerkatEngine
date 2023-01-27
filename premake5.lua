@@ -11,7 +11,7 @@ workspace "MeerkatEngine"
         optimize "On"
 
 project "EngineCore"
-    kind "StaticLib"
+    kind "SharedLib"
     language "C"
 
     files {
@@ -23,6 +23,21 @@ project "EngineCore"
         links "EngineCore"
     end
 
+project "EngineMantle"
+    kind "SharedLib"
+    language "C"
+
+    files {
+        "Mantle/**.c", "Mantle/**.h"
+    }
+
+    useEngineCore();
+
+    function useEngineMantle()
+        includedirs "Mantle/includes"
+        links "EngineMantle"
+    end
+
 project "EngineApp"
     kind "ConsoleApp"
     language "C"
@@ -32,3 +47,4 @@ project "EngineApp"
     }
 
     useEngineCore()
+    useEngineMantle()

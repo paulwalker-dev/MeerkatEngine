@@ -5,3 +5,4 @@
 #include "../Store.h"
 #include "../Task.h"
 #include "../lib/List.h"
+#include "../lib/Panic.h"
