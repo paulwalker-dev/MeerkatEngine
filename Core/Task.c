@@ -38,6 +38,8 @@ int task_filter(Archetype *a, List *l)
     cfound = 0;
     for (i = 0; l->length; ++i) {
         c = list_get(l, i);
+        if (c == NULL)
+            return 1;
         if (archetype_get(a, c->name))
             ++cfound;
         if (cfound == l->length)
