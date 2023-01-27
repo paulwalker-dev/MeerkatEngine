@@ -89,7 +89,6 @@ void *list_pop(List *l, int index)
 {
     ListNode *node;
     ListNode *prev_node;
-    ListNode *next_node;
     void *data;
 
     if (index == 0) {
@@ -105,14 +104,16 @@ void *list_pop(List *l, int index)
     if (node == NULL)
         return NULL;
 
-    next_node = node->next;
+    if (prev_node == NULL)
+        l->first_node = node->next;
+    else
+        prev_node->next = node->next;
+    
+    if (node->next == NULL)
+        l->last_node = prev_node;
+
     data = node->data;
     free(node);
-    if (prev_node == NULL)
-        l->first_node = next_node;
-    else
-        prev_node->next = next_node;
-
     l->length--;
 
     return data;
