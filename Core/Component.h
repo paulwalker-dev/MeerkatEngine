@@ -1,6 +1,20 @@
 #pragma once
 #include "lib/List.h"
 
+#define CD_INIT(name, var) \
+    _CD_INIT(name ## Component, var)
+#define _CD_INIT(name, var) \
+    name * var; \
+    var = malloc(sizeof(name))
+
+#define COMPONENT(name, cd_init) \
+    { \
+        Component *c; \
+        c = component_create(# name); \
+        c->data_init = cd_init; \
+        return c; \
+    }
+
 typedef struct {
     char *name;
     void *data;

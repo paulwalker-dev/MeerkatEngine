@@ -27,7 +27,7 @@ Component *component_find(List *l, char *name)
         c = list_get(l, i);
 
         // Remember strcmp returns 0 when identical
-        if (!strcmp(c->name, name))
+        if (c && !strcmp(c->name, name))
             return c;
     }
     return NULL;
