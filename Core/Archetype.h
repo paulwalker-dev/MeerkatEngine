@@ -9,8 +9,9 @@ typedef struct {
 
 /**
  * Create an archetype
+ * @param name Name of the new archetype
  */
-Archetype *archetype_create();
+Archetype *archetype_create(char *name);
 
 /**
  * Destroy an archetype

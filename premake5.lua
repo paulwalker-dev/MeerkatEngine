@@ -1,5 +1,5 @@
 workspace "MeerkatEngine"
-    configurations { "Debug", "Release" }
+    configurations { "Debug", "Release", "Web" }
     location "build"
 
     filter "configurations:Debug"
@@ -10,12 +10,26 @@ workspace "MeerkatEngine"
         defines { "NDEBUG" }
         optimize "On"
 
-project "EngineCore"
+    filter "configurations:Web"
+        defines { "NDEBUG" }
+        optimize "On"
+
+function makeLib()
     kind "SharedLib"
     language "C"
 
+    filter "configurations:Web"
+        kind "StaticLib"
+
+    filter "*"
+end
+
+project "EngineCore"
+    makeLib()
+
     files {
-        "Core/**.c", "Core/**.h"
+        "Core/**.c",
+        "Core/**.h"
     }
 
     function useEngineCore()
@@ -24,14 +38,14 @@ project "EngineCore"
     end
 
 project "EngineMantle"
-    kind "SharedLib"
-    language "C"
+    makeLib()
 
     files {
-        "Mantle/**.c", "Mantle/**.h"
+        "Mantle/**.c",
+        "Mantle/**.h"
     }
 
-    useEngineCore();
+    useEngineCore()
 
     function useEngineMantle()
         includedirs "Mantle/includes"
@@ -43,8 +57,13 @@ project "EngineApp"
     language "C"
 
     files {
-        "App/**.c", "App/**.h"
+        "App/**.c",
+        "App/**.h"
     }
 
     useEngineCore()
     useEngineMantle()
+
+    filter "configurations:Web"
+        targetsuffix ".html"
+        linkoptions { "-sWASM=0" }

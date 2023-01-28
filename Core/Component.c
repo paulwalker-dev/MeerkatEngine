@@ -6,6 +6,7 @@
 void *default_cd_create()
 {
     panic("Default Component Data function used!\n");
+    return NULL;
 }
 
 void default_cd_destroy(void *cd)
