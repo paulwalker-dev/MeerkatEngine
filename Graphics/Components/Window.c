@@ -9,6 +9,10 @@ void *cd_graphics_window_create()
 
     SDL_Window *window;
     SDL_Surface *surface;
+    SDL_Renderer *renderer;
+
+    cd->width = 680;
+    cd->height = 480;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         panic("Graphics init failed");
@@ -17,7 +21,7 @@ void *cd_graphics_window_create()
         "SDL2 Window",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        680, 480, 0
+        cd->width, cd->height, 0
     );
 
     if (!window)
@@ -28,9 +32,18 @@ void *cd_graphics_window_create()
     if (!surface)
         panic("Failed to get window surface");
 
+    renderer = SDL_CreateRenderer(
+        window, -1,
+        SDL_RENDERER_ACCELERATED
+    );
+
+    if (!renderer)
+        panic("Failed to initialize renderer");
+
     cd->open = 1;
     cd->window = window;
     cd->surface = surface;
+    cd->renderer = renderer;
 
     return cd;
 }
@@ -39,7 +52,7 @@ void cd_graphics_window_destroy(void *_cd)
 {
     GraphicsWindowComponent *cd = _cd;
 
-    SDL_FreeSurface(cd->surface);
+    SDL_DestroyRenderer(cd->renderer);
     SDL_DestroyWindow(cd->window);
     SDL_Quit();
 }

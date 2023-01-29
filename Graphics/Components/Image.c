@@ -8,8 +8,9 @@ void *cd_graphics_image_create()
 {
     CD_INIT(GraphicsImage, cd);
 
-    cd->filename = "App/assets/text.bmp";
+    cd->filename = "Graphics/assets/default.bmp";
     cd->surface = NULL;
+    cd->texture = NULL;
 
     return cd;
 }
@@ -18,8 +19,8 @@ void cd_graphics_image_destroy(void *_cd)
 {
     GraphicsImageComponent *cd = _cd;
 
-    if (cd->surface)
-        SDL_FreeSurface(cd->surface);
+    if (cd->texture)
+        SDL_DestroyTexture(cd->texture);
 }
 
 Component *c_graphics_image_create()
