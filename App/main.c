@@ -39,9 +39,7 @@ int main()
     box_task(b, t_info_run, "Position", 0);
 
     box_archetype(b, "Text", "GraphicsImage", 0);
-    text = box_entity(b, "Text");
-    TASK_CD(text->data, GraphicsImage, cd_image);
-    cd_image->filename = "App/assets/text.bmp";
+    box_entity(b, "Text");
 
     graphics_loop(b);
 

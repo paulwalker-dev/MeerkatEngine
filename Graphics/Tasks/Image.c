@@ -9,7 +9,10 @@ void t_image_update(List *cd, List *e)
     TASK_E(e, GraphicsData, e_graphics);
     TASK_CD(cd, GraphicsImage, cd_image);
     TASK_CD(e_graphics->data, GraphicsWindow, cd_window);
-    
+
+    if (!cd_image->surface)
+        cd_image->surface = SDL_LoadBMP(cd_image->filename);
+
     SDL_BlitSurface(
         cd_image->surface, NULL,
         cd_window->surface, NULL

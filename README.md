@@ -11,6 +11,7 @@ A game engine project with ecs at it's core (found in `/Core`).
 
 ### Desktop
 * `cc` - Any C compiler supported by premake (`#pragma once` support also required)
+* `sdl2` - Used in the graphics api
 
 ### Web
 * `emsdk` - Provides web support
@@ -20,7 +21,7 @@ A game engine project with ecs at it's core (found in `/Core`).
 Ensure `premake5` is installed along with the development tools for your specific platform.
 
 ### Desktop
-Refer to the `premake5` [manual](https://premake.github.io/docs/Using-Premake)
+Refer to the `premake5` [manual](https://premake.github.io/docs/Using-Premake).
 
 ### Web
 ```sh

@@ -45,16 +45,7 @@ void graphics_create(Box *b)
 }
 
 #ifdef WEB
-void graphics_loop_func(void *o) {
-    Box *b;
-    b = o;
-
-    TASK_E(b->s->entities, GraphicsData, e);
-    TASK_CD(e->data, GraphicsWindow, cd_window);
-
-    if (!cd_window->open)
-        emscripten_cancel_main_loop();
-
+void graphics_loop_func(void *b) {
     box_update(b);
 }
 #endif

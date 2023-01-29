@@ -9,7 +9,7 @@ void *cd_graphics_image_create()
     CD_INIT(GraphicsImage, cd);
 
     cd->filename = "App/assets/text.bmp";
-    cd->surface = SDL_LoadBMP(cd->filename);
+    cd->surface = NULL;
 
     return cd;
 }
