@@ -10,16 +10,20 @@
     tmp = component_data_find(list, # name); \
     var = tmp -> data
 
+#define TASK_E(list, name, var) \
+    Entity* var; \
+    var = entity_find(list, # name)
+
 typedef struct {
     List *components;
-    void (* run)(List *cd);
+    void (* run)(List *cd, List *e);
 } Task;
 
 /**
  * Create task
  * @param run Pointer to function to run every update
  */
-Task *task_create(void (* run)(List *cd));
+Task *task_create(void (* run)(List *cd, List *e));
 
 /**
  * Destroy Task

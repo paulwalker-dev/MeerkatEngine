@@ -75,7 +75,7 @@ Entity *box_entity(Box *b, char *archetype)
     return e;
 }
 
-void _box_task_placeholder(List *l)
+void _box_task_placeholder(List *cd, List *e)
 {
     panic("Task initialized with box wrapper in invalid state");
 }
@@ -88,7 +88,7 @@ Task *_box_task_create(List *c)
     return t;
 }
 
-void box_task(Box *b, void (* run)(List *cd), char *component, ...)
+void box_task(Box *b, void (* run)(List *cd, List *e), char *component, ...)
 {
     Task *t;
     Component *c;

@@ -1,4 +1,7 @@
 #include "Window.h"
+#include "EngineCore.h"
+#include <stdlib.h>
+#include "SDL2/SDL.h"
 
 void *cd_graphics_window_create()
 {
@@ -25,15 +28,6 @@ void *cd_graphics_window_create()
     if (!surface)
         panic("Failed to get window surface");
 
-    SDL_FillRect(
-        surface,
-        NULL,
-        SDL_MapRGB(
-            surface->format,
-            0xFF, 0xFF, 0xFF));
-
-    SDL_UpdateWindowSurface(window);
-
     cd->open = 1;
     cd->window = window;
     cd->surface = surface;
@@ -45,6 +39,7 @@ void cd_graphics_window_destroy(void *_cd)
 {
     GraphicsWindowComponent *cd = _cd;
 
+    SDL_FreeSurface(cd->surface);
     SDL_DestroyWindow(cd->window);
     SDL_Quit();
 }

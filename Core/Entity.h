@@ -31,4 +31,4 @@ void entity_cleanup(void *e);
  * Find first entity in list with given archetype
  * @param a Archetype of entity to find
  */
-Entity *entity_find(List *l, Archetype *a);
+Entity *entity_find(List *l, char *archetype);

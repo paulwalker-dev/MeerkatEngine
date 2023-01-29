@@ -94,3 +94,6 @@ project "EngineApp"
 
     filter "configurations:Web"
         targetsuffix ".html"
+        linkoptions {
+            "--preload-file", "../App/assets@/App/assets"
+        }

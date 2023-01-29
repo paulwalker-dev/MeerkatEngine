@@ -1,8 +1,12 @@
 #pragma once
 #include "EngineMantle.h"
-#include "Components/Window.h"
 
 void graphics_create(Box *b);
+
+#ifdef WEB
+#include "emscripten.h"
+void graphics_loop_func(void *b);
+#endif
 
 void graphics_loop(Box *b);
 

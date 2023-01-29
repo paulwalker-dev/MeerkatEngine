@@ -52,7 +52,7 @@ void entity_cleanup(void *e)
     entity_destroy(e);
 }
 
-Entity *entity_find(List *l, Archetype *a)
+Entity *entity_find(List *l, char *archetype)
 {
     int i;
     Entity *e;
@@ -61,7 +61,7 @@ Entity *entity_find(List *l, Archetype *a)
         e = list_get(l, i);
 
         // Remember strcmp returns 0 when identical
-        if (!strcmp(e->archetype->name, a->name))
+        if (!strcmp(e->archetype->name, archetype))
             return e;
     }
     return NULL;

@@ -54,7 +54,7 @@ Entity *box_entity(Box *b, char *archetype);
  * Used in box_task wrapper
  * @attention This is an internal function, don't use it
  */
-void _box_task_placeholder(List *cd);
+void _box_task_placeholder(List *cd, List *e);
 
 /**
  * Used in box_task wrapper
@@ -68,4 +68,4 @@ Task *_box_task_create(List *c);
  * @attention End component list with NULL
  * @param component List of components
  */
-void box_task(Box *b, void (* run)(List *cd), char *component, ...);
+void box_task(Box *b, void (* run)(List *cd, List *e), char *component, ...);

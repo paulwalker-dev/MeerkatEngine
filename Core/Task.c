@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include <stdlib.h>
 
-Task *task_create(void (* run)(List *cd))
+Task *task_create(void (* run)(List *cd, List *e))
 {
     Task *t;
 
@@ -65,7 +65,7 @@ void task_run(Task *t, List *l)
 
     while (filtered_e->length) {
         e = list_pop(filtered_e, 0);
-        t->run(e->data);
+        t->run(e->data, l);
     }
 
     list_destroy(filtered_e);
