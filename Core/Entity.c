@@ -2,6 +2,7 @@
 #include "lib/UniqueId.h"
 #include "lib/Panic.h"
 #include <stdlib.h>
+#include <string.h>
 
 Entity *entity_create(Archetype *a)
 {
@@ -38,7 +39,7 @@ void entity_destroy(Entity *e)
         // It's possible for a component to be removed from an archetype after use.
         // When this happens it is impossible to deallocate component data.
         if (c == NULL)
-            panic("(Core/Entity.c) Entity in inconsistent state while deallocating");
+            panic("Entity in inconsistent state while deallocating");
 
         component_data_destroy(c, cd);
     }
@@ -49,4 +50,19 @@ void entity_destroy(Entity *e)
 void entity_cleanup(void *e)
 {
     entity_destroy(e);
+}
+
+Entity *entity_find(List *l, Archetype *a)
+{
+    int i;
+    Entity *e;
+
+    for (i = 0; i < l->length; ++i) {
+        e = list_get(l, i);
+
+        // Remember strcmp returns 0 when identical
+        if (!strcmp(e->archetype->name, a->name))
+            return e;
+    }
+    return NULL;
 }

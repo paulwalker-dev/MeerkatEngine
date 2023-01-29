@@ -11,7 +11,7 @@ workspace "MeerkatEngine"
         optimize "On"
 
     filter "configurations:Web"
-        defines { "NDEBUG" }
+        defines { "NDEBUG", "WEB" }
         optimize "On"
 
 function makeLib()
@@ -20,6 +20,15 @@ function makeLib()
 
     filter "configurations:Web"
         kind "StaticLib"
+
+    filter "*"
+end
+
+function useSDL2()
+    linkoptions { "-lSDL2" }
+
+    filter "configurations:Web"
+        buildoptions { "-sUSE_SDL=2" }
 
     filter "*"
 end
@@ -52,6 +61,24 @@ project "EngineMantle"
         links "EngineMantle"
     end
 
+project "EngineGraphics"
+    makeLib()
+
+    files {
+        "Graphics/**.c",
+        "Graphics/**.h"
+    }
+
+    useEngineCore()
+    useEngineMantle()
+    useSDL2()
+
+    function useEngineGraphics()
+        includedirs "Graphics/includes"
+        links "EngineGraphics"
+        useSDL2()
+    end
+
 project "EngineApp"
     kind "ConsoleApp"
     language "C"
@@ -63,7 +90,7 @@ project "EngineApp"
 
     useEngineCore()
     useEngineMantle()
+    useEngineGraphics()
 
     filter "configurations:Web"
         targetsuffix ".html"
-        linkoptions { "-sWASM=0" }

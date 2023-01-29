@@ -2,12 +2,12 @@
 #include "Archetype.h"
 #include "Component.h"
 
-#define TASK_CD(name, var) \
-    _TASK_CD(name, var, _ ## var)
-#define _TASK_CD(name, var, tmp) \
+#define TASK_CD(list, name, var) \
+    _TASK_CD(list, name, var, _ ## var)
+#define _TASK_CD(list, name, var, tmp) \
     ComponentData* tmp; \
     name ## Component * var; \
-    tmp = component_data_find(l, # name); \
+    tmp = component_data_find(list, # name); \
     var = tmp -> data
 
 typedef struct {

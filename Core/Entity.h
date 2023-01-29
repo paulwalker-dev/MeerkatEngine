@@ -26,3 +26,9 @@ void entity_destroy(Entity *e);
  * @param e The pointer to the entity to deallocate
  */
 void entity_cleanup(void *e);
+
+/**
+ * Find first entity in list with given archetype
+ * @param a Archetype of entity to find
+ */
+Entity *entity_find(List *l, Archetype *a);

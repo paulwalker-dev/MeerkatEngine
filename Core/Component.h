@@ -8,10 +8,13 @@
     var = malloc(sizeof(name))
 
 #define COMPONENT(name, cd_init) \
+    COMPONENT3(name, cd_init, default_cd_destroy)
+#define COMPONENT3(name, cd_init, cd_destroy) \
     { \
         Component *c; \
         c = component_create(# name); \
         c->data_init = cd_init; \
+        c->data_destroy = cd_destroy; \
         return c; \
     }
 
