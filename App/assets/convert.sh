@@ -12,7 +12,8 @@ deno run --allow-net=deno.land \
     "${ASSETS}"/tileset.png \
     "${OBJ_DIR}"/assets
 
-mkdir -p ${BIN_DIR}/assets
+rm -rf "${BIN_DIR}"/assets
+mkdir -p "${BIN_DIR}"/assets
 for i in "${OBJ_DIR}"/assets/*.png; do
 	convert $i "${BIN_DIR}"/assets/"$(basename $i .png)".qoi
 done

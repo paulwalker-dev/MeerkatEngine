@@ -8,7 +8,7 @@ void *cd_graphics_image_create()
 {
     CD_INIT(GraphicsImage, cd);
 
-    cd->filename = "Graphics/assets/default.bmp";
+    cd->filename = "assets/default.qoi";
     cd->surface = NULL;
     cd->texture = NULL;
 

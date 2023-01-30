@@ -15,6 +15,7 @@ A unix-like os
 ### Desktop
 * `cc` - Any C compiler supported by premake (`#pragma once` support also required)
 * `sdl2` - Used in the graphics api
+* `sdl2-image v2.6+` - QOI Images
 
 ### Web
 * `emsdk` - Provides web support

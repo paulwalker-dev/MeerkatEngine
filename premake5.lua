@@ -25,10 +25,15 @@ function makeLib()
 end
 
 function useSDL2()
-    linkoptions { "-lSDL2" }
+    links { "SDL2", "SDL2_image" }
 
     filter "configurations:Web"
-        buildoptions { "-sUSE_SDL=2" }
+    	removelinks { "SDL2_image" }
+        buildoptions {
+            "-sUSE_SDL=2",
+            "-sUSE_SDL_IMAGE=2",
+            "-sSDL2_IMAGE_FORMATS='[\"qoi\"]'"
+        }
 
     filter "*"
 end
@@ -93,11 +98,12 @@ project "EngineApp"
     useEngineGraphics()
 
     prelinkcommands {
-        "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
+        "../App/assets/convert.sh %{cfg.objdir}/png %{cfg.objdir}"
     }
 
     filter "configurations:Web"
         targetsuffix ".html"
         linkoptions {
-            "--preload-file", "../App/assets@/App/assets"
+            "--use-preload-plugins",
+            "--embed-file", "%{cfg.objdir}/assets@/"
         }

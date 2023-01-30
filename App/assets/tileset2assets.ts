@@ -46,7 +46,7 @@ await new Command()
             const tile = await image
                 .clone()
                 .crop(h * i, 0, h, h)
-                .encode(0)
+                .encode(3)
 
             const tilename: string = tilemap ? tilemap[i] : `${i}`
             Deno.writeFileSync(`${output}/${tilename}.png`, tile)
