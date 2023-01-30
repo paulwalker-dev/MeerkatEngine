@@ -9,6 +9,7 @@ A unix-like os
 
 ### All platforms
 * `premake5` - Used to generate makefiles
+* `deno` - Used in various parts of the engine build system
 * `imagemagick` - Used for image manipulation
 
 ### Desktop
