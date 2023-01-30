@@ -5,10 +5,11 @@ Just a hobby game engine (WIP)
 A game engine project with ecs at it's core (found in `/Core`).
 
 ## Dependencies
+A unix-like os
 
 ### All platforms
 * `premake5` - Used to generate makefiles
-* `deno` - Used for asset management
+* `imagemagick` - Used for image manipulation
 
 ### Desktop
 * `cc` - Any C compiler supported by premake (`#pragma once` support also required)

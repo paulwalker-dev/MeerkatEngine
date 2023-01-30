@@ -93,7 +93,7 @@ project "EngineApp"
     useEngineGraphics()
 
     prelinkcommands {
-        "deno run --allow-net=deno.land --allow-read --allow-write ../Tools/tileset2assets.ts -m ../App/assets/tileset.png.json ../App/assets/tileset.png"
+        "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
     }
 
     filter "configurations:Web"

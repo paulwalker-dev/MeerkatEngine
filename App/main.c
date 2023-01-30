@@ -3,6 +3,8 @@
 #include "EngineGraphics.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <libgen.h>
+#include <unistd.h>
 
 void t_move_run(List *cd, List *e)
 {
@@ -21,10 +23,14 @@ void t_info_run(List *cd, List *e)
            cd_position->y);
 }
 
-int main()
+int main(int argv, char *argc[])
 {
     Box *b;
     Entity *e_image;
+
+    #ifndef WEB
+    chdir(dirname(argc[0]));
+    #endif
 
     b = box_create();
 
