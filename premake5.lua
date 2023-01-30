@@ -24,10 +24,13 @@ function makeLib()
     filter "*"
 end
 
+include "libs"
+
 function useSDL2()
-    linkoptions { "-lSDL2" }
+    links { "SDL2", "SDL2_image" }
 
     filter "configurations:Web"
+        removelinks { "SDL2_image" }
         buildoptions { "-sUSE_SDL=2" }
 
     filter "*"
