@@ -1,5 +1,5 @@
 workspace "MeerkatEngine"
-    configurations { "Debug", "Release", "Web" }
+    configurations { "Debug", "Release" }
     location "build"
 
     filter "configurations:Debug"
@@ -10,36 +10,13 @@ workspace "MeerkatEngine"
         defines { "NDEBUG" }
         optimize "On"
 
-    filter "configurations:Web"
-        defines { "NDEBUG", "WEB" }
-        optimize "On"
-
-function makeLib()
-    kind "SharedLib"
-    language "C"
-
-    filter "configurations:Web"
-        kind "StaticLib"
-
-    filter "*"
-end
-
 function useSDL2()
     links { "SDL2", "SDL2_image" }
-
-    filter "configurations:Web"
-    	removelinks { "SDL2_image" }
-        buildoptions {
-            "-sUSE_SDL=2",
-            "-sUSE_SDL_IMAGE=2",
-            "-sSDL2_IMAGE_FORMATS='[\"qoi\"]'"
-        }
-
-    filter "*"
 end
 
 project "EngineCore"
-    makeLib()
+    kind "SharedLib"
+    language "C"
 
     files {
         "Core/**.c",
@@ -52,7 +29,8 @@ project "EngineCore"
     end
 
 project "EngineMantle"
-    makeLib()
+    kind "SharedLib"
+    language "C"
 
     files {
         "Mantle/**.c",
@@ -67,7 +45,8 @@ project "EngineMantle"
     end
 
 project "EngineGraphics"
-    makeLib()
+    kind "SharedLib"
+    language "C"
 
     files {
         "Graphics/**.c",
@@ -100,10 +79,3 @@ project "EngineApp"
     prelinkcommands {
         "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
     }
-
-    filter "configurations:Web"
-        targetsuffix ".html"
-        linkoptions {
-            "--use-preload-plugins",
-            "--preload-file", "%{cfg.buildtarget.directory}/assets@/assets"
-        }

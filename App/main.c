@@ -28,9 +28,8 @@ int main(int argv, char *argc[])
     Box *b;
     Entity *e_image;
 
-    #ifndef WEB
+    // Ensure assets can be accessed via relative paths
     chdir(dirname(argc[0]));
-    #endif
 
     b = box_create();
 
