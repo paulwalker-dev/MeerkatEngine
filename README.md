@@ -8,6 +8,7 @@ A game engine project with ecs at it's core (found in `/Core`).
 
 ### All platforms
 * `premake5` - Used to generate makefiles
+* `deno` - Used for asset management
 
 ### Desktop
 * `cc` - Any C compiler supported by premake (`#pragma once` support also required)

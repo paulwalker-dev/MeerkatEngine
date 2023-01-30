@@ -92,6 +92,10 @@ project "EngineApp"
     useEngineMantle()
     useEngineGraphics()
 
+    prelinkcommands {
+        "deno run --allow-net=deno.land --allow-read --allow-write ../Tools/tileset2assets.ts -m ../App/assets/tileset.png.json ../App/assets/tileset.png"
+    }
+
     filter "configurations:Web"
         targetsuffix ".html"
         linkoptions {
