@@ -3,6 +3,8 @@
 #include "EngineGraphics.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <libgen.h>
+#include <unistd.h>
 
 void t_move_run(List *cd, List *e)
 {
@@ -21,10 +23,13 @@ void t_info_run(List *cd, List *e)
            cd_position->y);
 }
 
-int main()
+int main(int argv, char *argc[])
 {
     Box *b;
     Entity *e_image;
+
+    // Ensure assets can be accessed via relative paths
+    chdir(dirname(argc[0]));
 
     b = box_create();
 
@@ -33,7 +38,7 @@ int main()
     box_archetype(b, "Image", "GraphicsImage", "GraphicsPosition", "GraphicsSize", 0);
     e_image = box_entity(b, "Image");
     TASK_CD(e_image->data, GraphicsImage, cd_image);
-    cd_image->filename = "App/assets/sun.bmp";
+    cd_image->filename = "assets/grass.qoi";
 
     box_task(b, t_move_run, "GraphicsPosition", 0);
     box_task(b, t_info_run, "GraphicsPosition", 0);

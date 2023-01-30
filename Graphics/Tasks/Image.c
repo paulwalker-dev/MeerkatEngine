@@ -5,6 +5,7 @@
 #include "../Components/Window.h"
 #include <string.h>
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 
 void t_draw_image(List *cd, List *e)
 {
@@ -17,7 +18,7 @@ void t_draw_image(List *cd, List *e)
     SDL_Rect rect;
 
     if (!cd_image->texture) {
-        cd_image->surface = SDL_LoadBMP(cd_image->filename);
+        cd_image->surface = IMG_Load(cd_image->filename);
         cd_image->texture = SDL_CreateTextureFromSurface(
             cd_window->renderer, cd_image->surface
         );

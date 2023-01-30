@@ -48,26 +48,19 @@ void graphics_create(Box *b)
     box_task(b, t_window, "GraphicsWindow", 0);
 }
 
-#ifdef WEB
-void graphics_loop_func(void *b) {
-    box_update(b);
-}
-#endif
-
 void graphics_loop(Box *b)
 {
-    int fps;
-    fps = 60;
-
-#ifndef WEB
     TASK_E(b->s->entities, GraphicsData, e);
     TASK_CD(e->data, GraphicsWindow, cd_window);
+
+    int fps;
 
     int start_time, end_time;
     int delay;
     float frame_time;
 
-    start_time = SDL_GetTicks();
+    fps = 60;
+
     while (cd_window->open) {
         start_time = SDL_GetTicks();
         box_update(b);
@@ -79,9 +72,6 @@ void graphics_loop(Box *b)
         if (delay > 0)
             SDL_Delay(delay);
     }
-#else
-    emscripten_set_main_loop_arg(graphics_loop_func, b, fps, 1);
-#endif
 }
 
 void graphics_destroy(Box *b)
