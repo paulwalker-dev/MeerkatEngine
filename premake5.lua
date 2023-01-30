@@ -105,5 +105,5 @@ project "EngineApp"
         targetsuffix ".html"
         linkoptions {
             "--use-preload-plugins",
-            "--embed-file", "%{cfg.objdir}/assets@/"
+            "--preload-file", "%{cfg.buildtarget.directory}/assets@/assets"
         }

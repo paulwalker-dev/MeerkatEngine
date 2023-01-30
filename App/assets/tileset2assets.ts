@@ -25,7 +25,7 @@ await new Command()
             )}`
         await ensureDir(output)
 
-        let image = await decode(Deno.readFileSync(tileset))
+        const image = await decode(Deno.readFileSync(tileset))
         if (image instanceof GIF) {
             console.log("Input is a GIF")
             Deno.exit(1)
