@@ -98,7 +98,7 @@ project "EngineApp"
     useEngineGraphics()
 
     prelinkcommands {
-        "../App/assets/convert.sh %{cfg.objdir}/png %{cfg.objdir}"
+        "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
     }
 
     filter "configurations:Web"
