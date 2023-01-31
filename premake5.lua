@@ -11,7 +11,15 @@ workspace "MeerkatEngine"
         optimize "On"
 
 function useSDL2()
-    links { "SDL2", "SDL2_image" }
+    filter "system:Windows"
+        linkoptions {
+            "-lmingw32", "-lSDL2main"
+        }
+
+    filter "*"
+        linkoptions {
+            "-lSDL2", "-lSDL2_image"
+        }
 end
 
 project "EngineCore"
@@ -79,3 +87,8 @@ project "EngineApp"
     prelinkcommands {
         "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
     }
+
+    filter "system:Windows"
+        linkoptions {
+            "-mwindows"
+        }

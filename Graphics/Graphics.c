@@ -39,14 +39,14 @@ void graphics_create(Box *b)
 
     box_archetype(b, "GraphicsData",
                   "GraphicsWindow",
-                  "GraphicsEvents", 0);
+                  "GraphicsEvents", NULL);
     box_entity(b, "GraphicsData");
 
-    box_task(b, t_blank_window, "GraphicsWindow", 0);
-    box_task(b, t_get_events, "GraphicsEvents", 0);
-    box_task(b, t_event_quit, "GraphicsEvents", 0);
-    box_task(b, t_draw_image, "GraphicsImage", "GraphicsPosition", "GraphicsSize", 0);
-    box_task(b, t_render, "GraphicsWindow", 0);
+    box_task(b, t_blank_window, "GraphicsWindow", NULL);
+    box_task(b, t_get_events, "GraphicsEvents", NULL);
+    box_task(b, t_event_quit, "GraphicsEvents", NULL);
+    box_task(b, t_draw_image, "GraphicsImage", "GraphicsPosition", "GraphicsSize", NULL);
+    box_task(b, t_render, "GraphicsWindow", NULL);
 }
 
 void graphics_loop(Box *b)

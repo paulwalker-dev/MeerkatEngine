@@ -32,12 +32,12 @@ int main(int argv, char *argc[])
     graphics_create(b);
 
     box_component(b, c_player_create);
-    box_archetype(b, "Player", "Player", "GraphicsImage", "GraphicsPosition", "GraphicsSize", 0);
+    box_archetype(b, "Player", "Player", "GraphicsImage", "GraphicsPosition", "GraphicsSize", NULL);
     e_player = box_entity(b, "Player");
     TASK_CD(e_player->data, GraphicsImage, cd_image);
     cd_image->filename = "assets/sun.qoi";
 
-    box_task(b, t_player_move, "GraphicsEvents", 0);
+    box_task(b, t_player_move, "GraphicsEvents", NULL);
 
     graphics_loop(b);
     graphics_destroy(b);

@@ -15,15 +15,6 @@ void *cd_graphics_image_create()
     return cd;
 }
 
-void cd_graphics_image_destroy(void *_cd)
-{
-    GraphicsImageComponent *cd = _cd;
-
-    if (cd->texture)
-        SDL_DestroyTexture(cd->texture);
-}
-
 Component *c_graphics_image_create()
-COMPONENT3(GraphicsImage,
-           cd_graphics_image_create,
-           cd_graphics_image_destroy);
+COMPONENT(GraphicsImage,
+          cd_graphics_image_create);
