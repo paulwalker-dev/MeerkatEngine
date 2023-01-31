@@ -35,11 +35,11 @@ void t_player_move(List *cd, List *e)
     }
 
     if (cd_player->up.pressed)
-        cd_position->y--;
+        cd_position->y -= 2;
     if (cd_player->down.pressed)
-        cd_position->y++;
+        cd_position->y += 2;
     if (cd_player->left.pressed)
-        cd_position->x--;
+        cd_position->x -= 2;
     if (cd_player->right.pressed)
-        cd_position->x++;
+        cd_position->x += 2;
 }
