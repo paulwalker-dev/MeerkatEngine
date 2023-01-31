@@ -61,15 +61,14 @@ void graphics_loop(Box *b)
     float frame_time;
 
     fps = 60;
+    frame_time = ((1.0f / fps) * 1000.0f);
 
     while (cd_window->open) {
         start_time = SDL_GetTicks();
         box_update(b);
         end_time = SDL_GetTicks();
 
-        frame_time = (end_time - start_time) / 1.0f;
-        delay = ((1.0f / fps) * 1000.0f) - (frame_time);
-
+        delay = frame_time - (end_time - start_time);
         if (delay > 0)
             SDL_Delay(delay);
     }
