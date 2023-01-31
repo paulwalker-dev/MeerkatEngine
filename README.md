@@ -1,3 +1,4 @@
+![Logo](App/assets/logo.png "Logo")
 # Meerkat Engine
 Just a hobby game engine (WIP)
 
