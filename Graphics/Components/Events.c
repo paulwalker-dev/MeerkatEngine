@@ -13,7 +13,8 @@ void *cd_graphics_events_create()
 
 void cd_graphics_events_destroy(void *_cd)
 {
-    GraphicsEventsComponent *cd = _cd;
+    GraphicsEventsComponent *cd;
+    cd = _cd;
     list_destroy(cd->events);
 }
 
