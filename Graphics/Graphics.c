@@ -4,10 +4,13 @@
 #include <unistd.h>
 #include "SDL2/SDL.h"
 
+#include "Components/Events.h"
 #include "Components/Image.h"
 #include "Components/Position.h"
 #include "Components/Size.h"
 #include "Components/Window.h"
+
+#include "Tasks/Events.h"
 #include "Tasks/Image.h"
 
 void t_blank_window(List *cd, List *e)
@@ -20,32 +23,30 @@ void t_blank_window(List *cd, List *e)
     SDL_RenderClear(cd_window->renderer);
 }
 
-void t_window(List *cd, List *e)
+void t_render(List *cd, List *e)
 {
     TASK_CD(cd, GraphicsWindow, cd_window);
-
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-        if (event.type == SDL_QUIT)
-            cd_window->open = 0;
-
     SDL_RenderPresent(cd_window->renderer);
 }
 
 void graphics_create(Box *b)
 {
+    box_component(b, c_graphics_events_create);
     box_component(b, c_graphics_image_create);
     box_component(b, c_graphics_position_create);
     box_component(b, c_graphics_size_create);
     box_component(b, c_graphics_window_create);
 
     box_archetype(b, "GraphicsData",
-                  "GraphicsWindow", 0);
+                  "GraphicsWindow",
+                  "GraphicsEvents", 0);
     box_entity(b, "GraphicsData");
 
     box_task(b, t_blank_window, "GraphicsWindow", 0);
+    box_task(b, t_get_events, "GraphicsEvents", 0);
+    box_task(b, t_event_quit, "GraphicsEvents", 0);
     box_task(b, t_draw_image, "GraphicsImage", "GraphicsPosition", "GraphicsSize", 0);
-    box_task(b, t_window, "GraphicsWindow", 0);
+    box_task(b, t_render, "GraphicsWindow", 0);
 }
 
 void graphics_loop(Box *b)
