@@ -22,7 +22,8 @@ void t_info_run(List *cd, List *e)
 int main(int argv, char *argc[])
 {
     Box *b;
-    Entity *e_player;
+    Entity *e_player1;
+    Entity *e_player2;
 
     // Ensure assets can be accessed via relative paths
     chdir(dirname(argc[0]));
@@ -33,11 +34,21 @@ int main(int argv, char *argc[])
 
     box_component(b, c_player_create);
     box_archetype(b, "Player", "Player", "GraphicsImage", "GraphicsPosition", "GraphicsSize", NULL);
-    e_player = box_entity(b, "Player");
-    TASK_CD(e_player->data, GraphicsImage, cd_image);
-    cd_image->filename = "assets/sun.qoi";
 
-    box_task(b, t_player_move, "GraphicsEvents", NULL);
+    e_player1 = box_entity(b, "Player");
+    TASK_CD(e_player1->data, GraphicsImage, cd_image1);
+    cd_image1->filename = "assets/sun.qoi";
+    
+    e_player2 = box_entity(b, "Player");
+    TASK_CD(e_player2->data, GraphicsImage, cd_image2);
+    TASK_CD(e_player2->data, Player, cd_player2);
+    cd_image2->filename = "assets/grass.qoi";
+    cd_player2->up.key = SDLK_UP;
+    cd_player2->down.key = SDLK_DOWN;
+    cd_player2->left.key = SDLK_LEFT;
+    cd_player2->right.key = SDLK_RIGHT;
+
+    box_task(b, t_player_move, "Player", NULL);
 
     graphics_loop(b);
     graphics_destroy(b);

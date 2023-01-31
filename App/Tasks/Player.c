@@ -19,10 +19,10 @@ void player_update_key(PlayerComponent *player, SDL_Keycode key, int pressed)
 
 void t_player_move(List *cd, List *e)
 {
-    TASK_E(e, Player, e_player);
-    TASK_CD(e_player->data, Player, cd_player);
-    TASK_CD(e_player->data, GraphicsPosition, cd_position);
-    TASK_CD(cd, GraphicsEvents, cd_events);
+    TASK_E(e, GraphicsData, e_window);
+    TASK_CD(cd, Player, cd_player);
+    TASK_CD(cd, GraphicsPosition, cd_position);
+    TASK_CD(e_window->data, GraphicsEvents, cd_events);
     SDL_Event *event;
     int i;
 
