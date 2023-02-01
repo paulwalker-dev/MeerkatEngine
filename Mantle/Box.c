@@ -9,18 +9,26 @@ Box *box_create()
 
     b = malloc(sizeof(Box));
     b->s = store_create();
+    b->tasks = list_create();
     return b;
 }
 
 void box_destroy(Box *b)
 {
+    list_cleanup(b->tasks, task_cleanup);
     store_destroy(b->s);
     free(b);
 }
 
 void box_update(Box *b)
 {
-    store_update(b->s);
+    int i;
+    Task *t;
+
+    for (i = 0; i < b->tasks->length; ++i) {
+        t = list_get(b->tasks, i);
+        task_run(t, b->s->entities);
+    }
 }
 
 void box_component(Box *b, Component *(* init_c)())
@@ -75,27 +83,14 @@ Entity *box_entity(Box *b, char *archetype)
     return e;
 }
 
-void _box_task_placeholder(List *cd, List *e)
-{
-    panic("Task initialized with box wrapper in invalid state");
-}
-
-Task *_box_task_create(List *c)
-{
-    Task *t;
-
-    t = task_create(_box_task_placeholder);
-    return t;
-}
-
 void box_task(Box *b, void (* run)(List *cd, List *e), char *component, ...)
 {
     Task *t;
     Component *c;
     va_list ap;
 
-    t = store_task(b->s, _box_task_create);
-    t->run = run;
+    t = task_create(run);
+    list_append(b->tasks, t);
 
     va_start(ap, component);
     for (; component; component = va_arg(ap, char *)) {

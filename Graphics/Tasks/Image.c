@@ -1,4 +1,5 @@
 #include "Image.h"
+#include "EngineMantle.h"
 #include <string.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"

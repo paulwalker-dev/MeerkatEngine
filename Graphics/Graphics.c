@@ -1,5 +1,4 @@
 #include "Graphics.h"
-#include "EngineCore.h"
 #include "EngineMantle.h"
 #include <unistd.h>
 #include "SDL2/SDL.h"

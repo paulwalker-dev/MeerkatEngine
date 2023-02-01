@@ -1,8 +1,10 @@
 #pragma once
 #include "EngineCore.h"
+#include "Task.h"
 
 typedef struct {
     Store *s;
+    List *tasks;
 } Box;
 
 /**
@@ -49,18 +51,6 @@ Entity *_box_entity_create(List *a);
  * @param archetype Name of the parent archetype
  */
 Entity *box_entity(Box *b, char *archetype);
-
-/**
- * Used in box_task wrapper
- * @attention This is an internal function, don't use it
- */
-void _box_task_placeholder(List *cd, List *e);
-
-/**
- * Used in box_task wrapper
- * @attention This is an internal function, don't use it
- */
-Task *_box_task_create(List *c);
 
 /**
  * Makes task initialization less tedious

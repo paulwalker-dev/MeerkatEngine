@@ -1,6 +1,5 @@
 #pragma once
 #include "EngineCore.h"
-#include "SDL2/SDL.h"
 
 typedef struct {
     int x;

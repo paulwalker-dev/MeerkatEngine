@@ -1,6 +1,4 @@
 #include "Task.h"
-#include "Archetype.h"
-#include "Entity.h"
 #include <stdlib.h>
 
 Task *task_create(void (* run)(List *cd, List *e))

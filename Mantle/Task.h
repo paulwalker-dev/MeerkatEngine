@@ -1,6 +1,5 @@
 #pragma once
-#include "Archetype.h"
-#include "Component.h"
+#include "EngineCore.h"
 
 #define TASK_CD(list, name, var) \
     _TASK_CD(list, name, var, _ ## var)
