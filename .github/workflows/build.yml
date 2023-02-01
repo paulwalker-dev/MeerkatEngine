@@ -44,5 +44,17 @@ jobs:
 
       - name: Generate Makefiles
         run: premake5 gmake
-      - name: Build project
-        run: make -C build
+      - name: Build project (Debug)
+        run: make -C build config=debug
+      - name: Upload build (Debug)
+        uses: actions/upload-artifact@v3
+        with:
+          name: EngineApp-debug
+          path: build/bin/Debug
+      - name: Build project (Release)
+        run: make -C build config=release
+      - name: Upload build (Release)
+        uses: actions/upload-artifact@v3
+        with:
+          name: EngineApp-release
+          path: build/bin/Release
