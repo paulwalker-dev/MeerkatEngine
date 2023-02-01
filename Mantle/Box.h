@@ -28,23 +28,11 @@ void box_update(Box *b);
 void box_component(Box *b, Component *(* init_c)());
 
 /**
- * Used in box_archetype wrapper
- * @attention This is an internal function, don't use it
- */
-Archetype *_box_archetype_create(List *c);
-
-/**
  * Makes archetype initialization less tedious
  * @param name Name of archetype
  * @param[in] ... List of components
  */
 void box_archetype(Box *b, char *name, char *component, ...);
-
-/**
- * Used in box_entity wrapper
- * @attention This is an internal function, don't use it
- */
-Entity *_box_entity_create(List *a);
 
 /**
  * Makes entity initialization less tedious

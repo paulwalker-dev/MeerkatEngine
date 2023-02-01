@@ -1,4 +1,5 @@
 #include "Store.h"
+#include <stdarg.h>
 #include <stdlib.h>
 
 Store *store_create()
@@ -31,20 +32,34 @@ Component *store_component(Store *s, Component *(* init_c)())
     return c;
 }
 
-Archetype *store_archetype(Store *s, Archetype *(* init_a)(List *c))
+Archetype *store_archetype(Store *s, char *name, char *component, ...)
 {
     Archetype *a;
+    Component *c;
+    va_list ap;
 
-    a = init_a(s->components);
+    a = archetype_create(name);
+
+    va_start(ap, component);
+    while (component) {
+        c = component_find(s->components, component);
+        list_append(a->components, c);
+        component = va_arg(ap, char *);
+    }
+    va_end(ap);
+
     list_append(s->archetypes, a);
+
     return a;
 }
 
-Entity *store_entity(Store *s, Entity *(* init_e)(List *a))
+Entity *store_entity(Store *s, char *archetype)
 {
+    Archetype *a;
     Entity *e;
 
-    e = init_e(s->archetypes);
+    a = archetype_find(s->archetypes, archetype);
+    e = entity_create(a);
     list_append(s->entities, e);
     return e;
 }

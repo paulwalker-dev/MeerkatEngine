@@ -36,17 +36,15 @@ int main(int argv, char *argc[])
     box_archetype(b, "Player", "Player", "GraphicsImage", "GraphicsPosition", "GraphicsSize", NULL);
 
     e_player1 = box_entity(b, "Player");
-    TASK_CD(e_player1->data, GraphicsImage, cd_image1);
-    cd_image1->filename = "assets/sun.qoi";
+    TASK_CD(e_player1->data, GraphicsImage, cd_image);
+    cd_image->filename = "assets/sun.qoi";
     
     e_player2 = box_entity(b, "Player");
-    TASK_CD(e_player2->data, GraphicsImage, cd_image2);
-    TASK_CD(e_player2->data, Player, cd_player2);
-    cd_image2->filename = "assets/grass.qoi";
-    cd_player2->up.key = SDLK_UP;
-    cd_player2->down.key = SDLK_DOWN;
-    cd_player2->left.key = SDLK_LEFT;
-    cd_player2->right.key = SDLK_RIGHT;
+    TASK_CD(e_player2->data, Player, cd_player);
+    cd_player->up.key = SDLK_UP;
+    cd_player->down.key = SDLK_DOWN;
+    cd_player->left.key = SDLK_LEFT;
+    cd_player->right.key = SDLK_RIGHT;
 
     box_task(b, t_player_move, "Player", NULL);
 
