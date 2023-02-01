@@ -1,0 +1,43 @@
+name: Setup build environment
+on: [workflow_call]
+
+env:
+  PREMAKE_VERSION: 5.0.0-beta2
+
+jobs:
+  setup-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: build-essential libsdl2-dev imagemagick automake autoconf wget
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - uses: actions/checkout@v3
+
+      - name: Fetch premake5
+        run: |
+          mkdir -p build
+          cd build
+          wget https://github.com/premake/premake-core/releases/download/v${PREMAKE_VERSION}/premake-${PREMAKE_VERSION}-src.zip
+          unzip premake-${PREMAKE_VERSION}-src.zip
+          cd premake-${PREMAKE_VERSION}-src
+          make -f Bootstrap.mak linux
+          sudo cp bin/Release/premake5 /usr/local/bin
+
+      - name: Checkout SDL2_image
+        uses: actions/checkout@v3
+        with:
+          repository: 'libsdl-org/SDL_image'
+          ref: 'SDL2'
+          path: 'build/SDL2_image'
+      - name: Build SDL2_image
+        run: |
+          cd build/SDL2_image
+          git apply ../../.github/patches/SDL2_image.patch
+          mkdir -p build
+          cd build
+          ../configure
+          make
+          sudo make install

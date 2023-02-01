@@ -1,0 +1,15 @@
+name: Build EngineApp
+on: [push]
+
+jobs:
+  call-setup-linux:
+    uses: ./.github/workflows/setup.yml
+
+  build-linux:
+    runs-on: ubuntu-latest
+    needs: call-setup-linux
+    steps:
+      - name: Generate Makefiles
+        run: premake5 gmake
+      - name: Build project
+        run: make -C build
