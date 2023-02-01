@@ -1,6 +1,5 @@
 #pragma once
-#include "Archetype.h"
-#include "Component.h"
+#include "EngineCore.h"
 
 #define TASK_CD(list, name, var) \
     _TASK_CD(list, name, var, _ ## var)
@@ -14,16 +13,18 @@
     Entity* var; \
     var = entity_find(list, # name)
 
+#define TASK_POINTER void (* run)(Store *s, List *cd, List *e)
+
 typedef struct {
     List *components;
-    void (* run)(List *cd, List *e);
+    TASK_POINTER;
 } Task;
 
 /**
  * Create task
  * @param run Pointer to function to run every update
  */
-Task *task_create(void (* run)(List *cd, List *e));
+Task *task_create(TASK_POINTER);
 
 /**
  * Destroy Task
@@ -54,4 +55,4 @@ int task_filter(Archetype *a, List *c);
  * Run a task
  * @param l List of entities the task is allowed to modify
  */
-void task_run(Task *t, List *l);
+void task_run(Store *s, Task *t, List *l);

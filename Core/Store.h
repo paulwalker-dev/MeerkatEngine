@@ -2,14 +2,12 @@
 #include "Archetype.h"
 #include "Component.h"
 #include "Entity.h"
-#include "Task.h"
 #include "lib/List.h"
 
 typedef struct {
     List *components;
     List *archetypes;
     List *entities;
-    List *tasks;
 } Store;
 
 /**
@@ -32,22 +30,16 @@ void store_update(Store *s);
  * Create component to store, created via function pointer
  * @param init_c Function to create component
  */
-Component *store_component(Store *store, Component *(* init_c)());
+Component *store_component(Store *s, Component *(* init_c)());
 
 /**
  * Create archetype to store, created via function pointer
  * @param init_a Function to create archetype
  */
-Archetype *store_archetype(Store *store, Archetype *(* init_a)(List *c));
+Archetype *store_archetype(Store *s, char *name, char *component, ...);
 
 /**
  * Create entity to store, created via function pointer
- * @param init_e Function to create entity
+ * @param archetype Name of archetype for entity
  */
-Entity *store_entity(Store *store, Entity *(* init_e)(List *a));
-
-/**
- * Create task to store, created via function pointer
- * @param init_t Function to create task
- */
-Task *store_task(Store *s, Task *(* init_t)(List *c));
+Entity *store_entity(Store *s, char *archetype);

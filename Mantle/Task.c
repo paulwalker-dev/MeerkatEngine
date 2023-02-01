@@ -1,9 +1,7 @@
 #include "Task.h"
-#include "Archetype.h"
-#include "Entity.h"
 #include <stdlib.h>
 
-Task *task_create(void (* run)(List *cd, List *e))
+Task *task_create(TASK_POINTER)
 {
     Task *t;
 
@@ -48,7 +46,7 @@ int task_filter(Archetype *a, List *l)
     return 1;
 }
 
-void task_run(Task *t, List *l)
+void task_run(Store *s, Task *t, List *l)
 {
     int i;
     Archetype *a;
@@ -65,7 +63,7 @@ void task_run(Task *t, List *l)
 
     while (filtered_e->length) {
         e = list_pop(filtered_e, 0);
-        t->run(e->data, l);
+        t->run(s, e->data, l);
     }
 
     list_destroy(filtered_e);
