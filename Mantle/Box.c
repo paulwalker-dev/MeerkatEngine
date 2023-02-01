@@ -71,9 +71,10 @@ void box_task(Box *b, TASK_POINTER, char *component, ...)
     list_append(b->tasks, t);
 
     va_start(ap, component);
-    for (; component; component = va_arg(ap, char *)) {
+    while (component) {
         c = component_find(b->s->components, component);
         task_append(t, c);
+        component = va_arg(ap, char *);
     }
     va_end(ap);
 }
