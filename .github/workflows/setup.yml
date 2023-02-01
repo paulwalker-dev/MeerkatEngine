@@ -24,7 +24,7 @@ jobs:
           unzip premake-${PREMAKE_VERSION}-src.zip
           cd premake-${PREMAKE_VERSION}-src
           make -f Bootstrap.mak linux
-          sudo cp bin/Release/premake5 /usr/local/bin
+          sudo cp bin/release/premake5 /usr/local/bin
 
       - name: Checkout SDL2_image
         uses: actions/checkout@v3
