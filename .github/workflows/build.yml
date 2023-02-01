@@ -1,6 +1,9 @@
 name: Build EngineApp
 on: [push]
 
+env:
+  PREMAKE_VERSION: 5.0.0-beta2
+
 jobs:
   build-linux:
     runs-on: ubuntu-latest
