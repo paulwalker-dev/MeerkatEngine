@@ -1,5 +1,7 @@
 name: Build EngineApp
-on: [push]
+on:
+  push:
+    branches: [main]
 
 env:
   PREMAKE_VERSION: 5.0.0-beta2
