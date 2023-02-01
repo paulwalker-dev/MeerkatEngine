@@ -1,4 +1,4 @@
 #pragma once
 #include "EngineCore.h"
 
-void t_draw_image(List *l, List *e);
+void t_draw_image(Store *s, List *l, List *e);

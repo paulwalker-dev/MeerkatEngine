@@ -26,7 +26,7 @@ void box_update(Box *b)
 
     for (i = 0; i < b->tasks->length; ++i) {
         t = list_get(b->tasks, i);
-        task_run(t, b->s->entities);
+        task_run(b->s, t, b->s->entities);
     }
 }
 
@@ -61,7 +61,7 @@ Entity *box_entity(Box *b, char *archetype)
     return e;
 }
 
-void box_task(Box *b, void (* run)(List *cd, List *e), char *component, ...)
+void box_task(Box *b, TASK_POINTER, char *component, ...)
 {
     Task *t;
     Component *c;

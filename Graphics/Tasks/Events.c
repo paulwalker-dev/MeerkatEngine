@@ -5,7 +5,7 @@
 #include "../Components/Events.h"
 #include "../Components/Window.h"
 
-void t_get_events(List *cd, List *e)
+void t_get_events(Store *s, List *cd, List *e)
 {
     TASK_CD(cd, GraphicsEvents, cd_events);
 
@@ -21,7 +21,7 @@ void t_get_events(List *cd, List *e)
     }
 }
 
-void t_event_quit(List *cd, List *e)
+void t_event_quit(Store *s, List *cd, List *e)
 {
     TASK_E(e, GraphicsData, e_window);
     TASK_CD(e_window->data, GraphicsWindow, cd_window);

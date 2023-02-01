@@ -9,7 +9,7 @@
 #include "../Components/Size.h"
 #include "../Components/Window.h"
 
-void t_draw_image(List *cd, List *e)
+void t_draw_image(Store *s, List *cd, List *e)
 {
     TASK_E(e, GraphicsData, e_graphics);
     TASK_CD(cd, GraphicsImage, cd_image);

@@ -46,4 +46,4 @@ Entity *box_entity(Box *b, char *archetype);
  * @attention End component list with NULL
  * @param component List of components
  */
-void box_task(Box *b, void (* run)(List *cd, List *e), char *component, ...);
+void box_task(Box *b, TASK_POINTER, char *component, ...);

@@ -12,7 +12,7 @@
 #include "Tasks/Events.h"
 #include "Tasks/Image.h"
 
-void t_blank_window(List *cd, List *e)
+void t_blank_window(Store *s, List *cd, List *e)
 {
     TASK_CD(cd, GraphicsWindow, cd_window);
     SDL_SetRenderDrawColor(
@@ -22,7 +22,7 @@ void t_blank_window(List *cd, List *e)
     SDL_RenderClear(cd_window->renderer);
 }
 
-void t_render(List *cd, List *e)
+void t_render(Store *s, List *cd, List *e)
 {
     TASK_CD(cd, GraphicsWindow, cd_window);
     SDL_RenderPresent(cd_window->renderer);

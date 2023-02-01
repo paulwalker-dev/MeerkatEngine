@@ -17,7 +17,7 @@ void player_update_key(PlayerComponent *player, SDL_Keycode key, int pressed)
         player->right.pressed = pressed;
 }
 
-void t_player_move(List *cd, List *e)
+void t_player_move(Store *s, List *cd, List *e)
 {
     TASK_E(e, GraphicsData, e_window);
     TASK_CD(cd, Player, cd_player);
