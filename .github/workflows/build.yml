@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repo: "MeerkatEngine/mingw-w64-MeerkatEngine"
+          repository: "MeerkatEngine/mingw-w64-MeerkatEngine"
       - name: Bootstrap and build EngineApp
         shell: powershell
         run: |
