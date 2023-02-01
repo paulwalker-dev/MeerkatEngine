@@ -5,6 +5,24 @@ env:
   PREMAKE_VERSION: 5.0.0-beta2
 
 jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repo: "MeerkatEngine/mingw-w64-MeerkatEngine"
+      - name: Bootstrap and build EngineApp
+        shell: powershell
+        run: |
+          New-Item -Path .\build -ItemType Directory -Force
+          Set-Location -Path .\build
+          ..\bootstrap.ps1
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: EngineApp-windows
+          path: build/bin
+  
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -49,12 +67,12 @@ jobs:
       - name: Upload build (Debug)
         uses: actions/upload-artifact@v3
         with:
-          name: EngineApp-debug
+          name: EngineApp-linux-debug
           path: build/bin/Debug
       - name: Build project (Release)
         run: make -C build config=release
       - name: Upload build (Release)
         uses: actions/upload-artifact@v3
         with:
-          name: EngineApp-release
+          name: EngineApp-linux-release
           path: build/bin/Release
