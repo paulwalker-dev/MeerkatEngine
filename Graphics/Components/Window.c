@@ -17,7 +17,7 @@ void *cd_graphics_window_create()
         panic("Graphics init failed");
 
     window = SDL_CreateWindow(
-        "SDL2 Window",
+        "EngineApp",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         cd->width, cd->height, 0
@@ -58,5 +58,5 @@ void cd_graphics_window_destroy(void *_cd)
 
 Component *c_graphics_window_create()
 COMPONENT3(GraphicsWindow,
-           cd_graphics_window_create,
-           cd_graphics_window_destroy);
+    cd_graphics_window_create,
+    cd_graphics_window_destroy);

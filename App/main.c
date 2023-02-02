@@ -1,4 +1,3 @@
-#include "EngineCore.h"
 #include "EngineMantle.h"
 #include "EngineGraphics.h"
 #include <stdio.h>
@@ -37,14 +36,16 @@ int main(int argv, char *argc[])
 
     e_player1 = box_entity(b, "Player");
     TASK_CD(e_player1->data, GraphicsImage, cd_image);
-    cd_image->filename = "assets/sun.qoi";
+    cd_image->filename = "assets/grass_top.qoi";
     
+    /*
     e_player2 = box_entity(b, "Player");
     TASK_CD(e_player2->data, Player, cd_player);
     cd_player->up.key    = SDLK_UP;
     cd_player->down.key  = SDLK_DOWN;
     cd_player->left.key  = SDLK_LEFT;
     cd_player->right.key = SDLK_RIGHT;
+    */
 
     box_task(b, t_player_move, "Player", NULL);
 

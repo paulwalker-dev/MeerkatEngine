@@ -2,8 +2,8 @@
 #include "EngineCore.h"
 
 typedef struct {
-    int x;
-    int y;
+    int x, y;
+    int rotation;
 } GraphicsPositionComponent;
 
 void *cd_graphics_position_create();

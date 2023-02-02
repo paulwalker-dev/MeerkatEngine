@@ -6,6 +6,7 @@ void *cd_graphics_position_create()
 {
     CD_INIT(GraphicsPosition, cd);
     cd->x = cd->y = 0;
+    cd->rotation = 0;
     return cd;
 }
 

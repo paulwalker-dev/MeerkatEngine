@@ -18,6 +18,7 @@ void t_draw_image(Store *s, List *cd, List *e)
     TASK_CD(e_graphics->data, GraphicsWindow, cd_window);
 
     SDL_Rect rect;
+    SDL_Texture *texture;
 
     if (!cd_image->texture) {
         cd_image->surface = IMG_Load(cd_image->filename);
@@ -32,19 +33,11 @@ void t_draw_image(Store *s, List *cd, List *e)
     rect.w = cd_size->width;
     rect.h = cd_size->height;
 
-    SDL_RenderSetViewport(
-        cd_window->renderer,
-        &rect
-    );
-
-    SDL_RenderCopy(
+    SDL_RenderCopyEx(
         cd_window->renderer,
         cd_image->texture,
-        NULL, NULL
-    );
-
-    SDL_RenderSetViewport(
-        cd_window->renderer,
-        NULL
+        NULL, &rect,
+        cd_position->rotation,
+        NULL, SDL_FLIP_NONE
     );
 }
