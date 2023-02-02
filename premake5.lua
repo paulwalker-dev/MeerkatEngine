@@ -18,7 +18,7 @@ function useSDL2()
 
     filter "*"
         linkoptions {
-            "-lSDL2", "-lSDL2_image"
+            "-lSDL2", "-lSDL2_image", "-lm"
         }
 end
 
