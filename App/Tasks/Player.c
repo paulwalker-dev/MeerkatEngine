@@ -44,12 +44,12 @@ void t_player_move(Store *s, List *cd, List *e)
         cd_position->rotation += 2 % 360;
 
     if (cd_player->up.pressed) {
-        cd_position->x += 3 * sin(cd_position->rotation * PI / 180);
-        cd_position->y -= 3 * cos(cd_position->rotation * PI / 180);
+        cd_position->x += 24 * sin(cd_position->rotation * PI / 180);
+        cd_position->y -= 24 * cos(cd_position->rotation * PI / 180);
     }
     
     if (cd_player->down.pressed) {
-        cd_position->x -= 3 * sin(cd_position->rotation * PI / 180);
-        cd_position->y += 3 * cos(cd_position->rotation * PI / 180);
+        cd_position->x -= 16 * sin(cd_position->rotation * PI / 180);
+        cd_position->y += 16 * cos(cd_position->rotation * PI / 180);
     }
 }

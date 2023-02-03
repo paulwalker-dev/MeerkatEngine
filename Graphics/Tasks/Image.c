@@ -28,8 +28,8 @@ void t_draw_image(Store *s, List *cd, List *e)
         SDL_FreeSurface(cd_image->surface);
     }
 
-    rect.x = cd_position->x;
-    rect.y = cd_position->y;
+    rect.x = cd_position->x / 8;
+    rect.y = cd_position->y / 8;
     rect.w = cd_size->width;
     rect.h = cd_size->height;
 
