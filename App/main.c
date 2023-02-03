@@ -1,4 +1,5 @@
 #include "EngineMantle.h"
+#include "EnginePhysics.h"
 #include "EngineGraphics.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +12,7 @@
 
 void t_info_run(List *cd, List *e)
 {
-    TASK_CD(cd, GraphicsPosition, cd_position);
+    TASK_CD(cd, Position, cd_position);
     
     printf("Position: { x: %d, y: %d }\n",
            cd_position->x,
@@ -21,34 +22,27 @@ void t_info_run(List *cd, List *e)
 int main(int argv, char *argc[])
 {
     Box *b;
-    Entity *e_player1;
-    Entity *e_player2;
+    Entity *e_player;
 
     // Ensure assets can be accessed via relative paths
     chdir(dirname(argc[0]));
 
     b = box_create();
 
+    physics_create(b);
     graphics_create(b);
 
     box_component(b, c_player_create);
-    box_archetype(b, "Player", "Player", "GraphicsImage", "GraphicsPosition", "GraphicsSize", NULL);
+    box_archetype(b, "Player", "Player", "GraphicsImage", "Position", NULL);
 
-    e_player1 = box_entity(b, "Player");
-    TASK_CD(e_player1->data, GraphicsImage, cd_image);
-    cd_image->filename = "assets/grass_top.qoi";
-    
-    /*
-    e_player2 = box_entity(b, "Player");
-    TASK_CD(e_player2->data, Player, cd_player);
-    cd_player->up.key    = SDLK_UP;
-    cd_player->down.key  = SDLK_DOWN;
-    cd_player->left.key  = SDLK_LEFT;
-    cd_player->right.key = SDLK_RIGHT;
-    */
+    e_player = box_entity(b, "Player");
+    TASK_CD(e_player->data, GraphicsImage, cd_image);
+    cd_image->filename = "assets/sun.qoi";
 
     box_task(b, t_player_move, "Player", NULL);
 
     graphics_loop(b);
     box_destroy(b);
+
+    return 0;
 }

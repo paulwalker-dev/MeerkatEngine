@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "EngineCore.h"
+#include "EnginePhysics.h"
 #include "EngineGraphics.h"
 #include <math.h>
 #include "SDL2/SDL.h"
@@ -10,21 +11,19 @@
 
 void player_update_key(PlayerComponent *player, SDL_Keycode key, int pressed)
 {
-    if (key == player->up.key)
-        player->up.pressed = pressed;
-    if (key == player->down.key)
-        player->down.pressed = pressed;
-    if (key == player->left.key)
-        player->left.pressed = pressed;
-    if (key == player->right.key)
-        player->right.pressed = pressed;
+    PlayerKey *target = NULL;
+    if (player->up.key == key) target = &player->up;
+    if (player->down.key == key) target = &player->down;
+    if (player->left.key == key) target = &player->left;
+    if (player->right.key == key) target = &player->right;
+    if (target) target->pressed = pressed;
 }
 
 void t_player_move(Store *s, List *cd, List *e)
 {
     TASK_E(e, GraphicsData, e_window);
     TASK_CD(cd, Player, cd_player);
-    TASK_CD(cd, GraphicsPosition, cd_position);
+    TASK_CD(cd, Position, cd_position);
     TASK_CD(e_window->data, GraphicsEvents, cd_events);
     SDL_Event *event;
     int i;
@@ -38,18 +37,12 @@ void t_player_move(Store *s, List *cd, List *e)
             player_update_key(cd_player, event->key.keysym.sym, 1);
     }
 
+    if (cd_player->up.pressed)
+        cd_position->y -= 1;
+    if (cd_player->down.pressed)
+        cd_position->y += 1;
     if (cd_player->left.pressed)
-        cd_position->rotation -= 2 % 360;
+        cd_position->x -= 1;
     if (cd_player->right.pressed)
-        cd_position->rotation += 2 % 360;
-
-    if (cd_player->up.pressed) {
-        cd_position->x += 24 * sin(cd_position->rotation * PI / 180);
-        cd_position->y -= 24 * cos(cd_position->rotation * PI / 180);
-    }
-    
-    if (cd_player->down.pressed) {
-        cd_position->x -= 16 * sin(cd_position->rotation * PI / 180);
-        cd_position->y += 16 * cos(cd_position->rotation * PI / 180);
-    }
+        cd_position->x += 1;
 }

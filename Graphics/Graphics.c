@@ -1,12 +1,9 @@
 #include "Graphics.h"
 #include "EngineMantle.h"
-#include <unistd.h>
 #include "SDL2/SDL.h"
 
 #include "Components/Events.h"
 #include "Components/Image.h"
-#include "Components/Position.h"
-#include "Components/Size.h"
 #include "Components/Window.h"
 
 #include "Tasks/Events.h"
@@ -17,8 +14,6 @@ void graphics_create(Box *b)
 {
     box_component(b, c_graphics_events_create);
     box_component(b, c_graphics_image_create);
-    box_component(b, c_graphics_position_create);
-    box_component(b, c_graphics_size_create);
     box_component(b, c_graphics_window_create);
 
     box_archetype(b, "GraphicsData",
@@ -29,7 +24,7 @@ void graphics_create(Box *b)
     box_task(b, t_blank_window, "GraphicsWindow", NULL);
     box_task(b, t_get_events, "GraphicsEvents", NULL);
     box_task(b, t_event_quit, "GraphicsEvents", NULL);
-    box_task(b, t_draw_image, "GraphicsImage", "GraphicsPosition", "GraphicsSize", NULL);
+    box_task(b, t_draw_image, "GraphicsImage", "Position", NULL);
     box_task(b, t_render, "GraphicsWindow", NULL);
 }
 

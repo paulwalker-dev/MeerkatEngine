@@ -39,6 +39,8 @@ void *cd_graphics_window_create()
     if (!renderer)
         panic("Failed to initialize renderer");
 
+    SDL_RenderSetScale(renderer, 4, 4);
+
     cd->open = 1;
     cd->window = window;
     cd->surface = surface;
