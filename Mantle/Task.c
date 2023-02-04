@@ -1,5 +1,7 @@
 #include "Task.h"
+#include "Dynamic.h"
 #include <stdlib.h>
+#include <string.h>
 
 Task *task_create(TASK_POINTER)
 {
@@ -27,7 +29,7 @@ void task_append(Task *t, Component *c)
     list_append(t->components, c);
 }
 
-int task_filter(Archetype *a, List *l)
+int task_filter(List *cd, List *l)
 {
     int i;
     int cfound;
@@ -38,7 +40,7 @@ int task_filter(Archetype *a, List *l)
         c = list_get(l, i);
         if (c == NULL)
             return 1;
-        if (archetype_get(a, c->name))
+        if (component_find(cd, c->name))
             ++cfound;
         if (cfound == l->length)
             return 0;
@@ -48,23 +50,33 @@ int task_filter(Archetype *a, List *l)
 
 void task_run(Store *s, Task *t, List *l)
 {
-    int i;
-    Archetype *a;
+    ComponentData *cd;
+    Dynamic *d;
     Entity *e;
-    List *filtered_e;
-
-    filtered_e = list_create();
+    List *data;
+    int i, j;
+    
     for (i = 0; i < l->length; ++i) {
+        data = list_create();
         e = list_get(l, i);
-        a = e->archetype;
-        if (!task_filter(a, t->components))
-            list_append(filtered_e, e);
-    }
+        d = NULL;
+        for (j = 0; j < e->data->length; ++j) {
+            cd = list_get(e->data, j);
+            list_append(data, cd);
+            if (!strcmp(cd->name, "Dynamic")) {
+                d = cd->data;
+            }
+        }
+        if (d) {
+            for (j = 0; j < d->data->length; ++j) {
+                cd = list_get(d->data, j);
+                list_append(data, cd);
+            }
+        }
 
-    while (filtered_e->length) {
-        e = list_pop(filtered_e, 0);
-        t->run(s, e->data, l);
-    }
+        if (!task_filter(data, t->components))
+            t->run(s, data, l);
 
-    list_destroy(filtered_e);
+        list_free(data);
+    }
 }

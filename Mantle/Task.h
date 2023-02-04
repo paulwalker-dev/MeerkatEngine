@@ -46,10 +46,11 @@ void task_append(Task *t, Component *c);
 
 /**
  * Check if given archetype contains certain components
+ * @param cd Entities component data
  * @param c List of components to check for
  * @returns Zero if archetype contains specified components
  */
-int task_filter(Archetype *a, List *c);
+int task_filter(List *cd, List *c);
 
 /**
  * Run a task

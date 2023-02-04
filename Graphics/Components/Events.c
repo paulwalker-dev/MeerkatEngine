@@ -14,6 +14,7 @@ void cd_graphics_events_destroy(void *_cd)
     GraphicsEventsComponent *cd;
     cd = _cd;
     list_destroy(cd->events);
+    free(cd);
 }
 
 Component *c_graphics_events_create()

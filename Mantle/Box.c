@@ -2,6 +2,8 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+#include "Dynamic.h"
+
 Box *box_create()
 {
     Box *b;
@@ -9,6 +11,9 @@ Box *box_create()
     b = malloc(sizeof(Box));
     b->s = store_create();
     b->tasks = list_create();
+
+    box_component(b, c_dynamic_create);
+
     return b;
 }
 

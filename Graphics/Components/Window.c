@@ -39,6 +39,8 @@ void *cd_graphics_window_create()
     if (!renderer)
         panic("Failed to initialize renderer");
 
+    SDL_RenderSetScale(renderer, 4, 4);
+
     cd->open = 1;
     cd->window = window;
     cd->surface = surface;
@@ -54,6 +56,7 @@ void cd_graphics_window_destroy(void *_cd)
     SDL_DestroyRenderer(cd->renderer);
     SDL_DestroyWindow(cd->window);
     SDL_Quit();
+    free(cd);
 }
 
 Component *c_graphics_window_create()
