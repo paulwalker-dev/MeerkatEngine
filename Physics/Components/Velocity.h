@@ -2,7 +2,7 @@
 #include "EngineCore.h"
 
 typedef struct {
-    int vx, vy;
+    float vx, vy;
 } VelocityComponent;
 
 void *cd_velocity_create();
