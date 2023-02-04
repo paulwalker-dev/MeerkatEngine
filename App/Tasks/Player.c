@@ -46,10 +46,18 @@ void t_player_move(Store *s, List *cd, List *e)
         cd_velocity->vy -= 6;
         cd_player->up.pressed = 2;
     }
-    if (cd_player->left.pressed)
-        cd_position->x -= 1;
-    if (cd_player->right.pressed)
-        cd_position->x += 1;
 
+    if (cd_player->left.pressed)
+        cd_velocity->vx = -2.5;
+    if (cd_player->right.pressed)
+        cd_velocity->vx = 2.5;
+    if (cd_velocity->vx) {
+        if (cd_velocity->vx < 0)
+            cd_velocity->vx += 0.5;
+        if (cd_velocity->vx > 0)
+            cd_velocity->vx -= 0.5;
+    }
+
+    cd_position->x += cd_velocity->vx;
     cd_position->y += cd_velocity->vy;
 }

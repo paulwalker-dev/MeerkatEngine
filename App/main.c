@@ -36,13 +36,16 @@ int main(int argv, char *argc[])
     box_archetype(b, "Player", "Player", "GraphicsStitch", "GraphicsImage", "Position", "Velocity", NULL);
 
     e_player = box_entity(b, "Player");
+
     TASK_CD(e_player->data, GraphicsStitch, cd_stitch);
-    
     cd_stitch->width  = 1;
     cd_stitch->height = 2;
     cd_stitch->filenames = list_create();
     list_append(cd_stitch->filenames, "assets/player_head_center.qoi");
     list_append(cd_stitch->filenames, "assets/player_body.qoi");
+
+    TASK_CD(e_player->data, Player, cd_player);
+    cd_player->up.key = SDLK_SPACE;
 
     box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);
 
