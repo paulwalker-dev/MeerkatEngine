@@ -24,10 +24,10 @@ void t_player_move(Store *s, List *cd, List *e)
     TASK_E(e, GraphicsData, e_window);
     TASK_CD(cd, Player, cd_player);
     TASK_CD(cd, Position, cd_position);
+    TASK_CD(cd, Velocity, cd_velocity);
     TASK_CD(e_window->data, GraphicsEvents, cd_events);
     SDL_Event *event;
     int i;
-    float deg;
 
     for (i = 0; i < cd_events->events->length; ++i) {
         event = list_get(cd_events->events, i);
@@ -37,12 +37,17 @@ void t_player_move(Store *s, List *cd, List *e)
             player_update_key(cd_player, event->key.keysym.sym, 1);
     }
 
-    if (cd_player->up.pressed)
-        cd_position->y -= 1;
-    if (cd_player->down.pressed)
-        cd_position->y += 1;
+    if (cd_player->up.pressed) {
+        if (cd_position->y == 100)
+            cd_velocity->vy -= 8;
+        cd_player->up.pressed = 0;
+    }
+    // if (cd_player->down.pressed)
+    //     cd_position->cy += 1;
     if (cd_player->left.pressed)
         cd_position->x -= 1;
     if (cd_player->right.pressed)
         cd_position->x += 1;
+
+    cd_position->y += cd_velocity->vy;
 }

@@ -39,7 +39,7 @@ void graphics_loop(Box *b)
     int delay;
     float frame_time;
 
-    fps = 60;
+    fps = 30;
     frame_time = ((1.0f / fps) * 1000.0f);
 
     while (cd_window->open) {

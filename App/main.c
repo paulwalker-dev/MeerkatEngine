@@ -33,7 +33,7 @@ int main(int argv, char *argc[])
     graphics_create(b);
 
     box_component(b, c_player_create);
-    box_archetype(b, "Player", "Player", "GraphicsImage", "Position", NULL);
+    box_archetype(b, "Player", "Player", "GraphicsImage", "Position", "Velocity", NULL);
 
     e_player = box_entity(b, "Player");
     TASK_CD(e_player->data, GraphicsImage, cd_image);
