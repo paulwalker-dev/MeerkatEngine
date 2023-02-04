@@ -32,6 +32,7 @@ void t_player_move(Store *s, List *cd, List *e)
     TASK_CD(cd, Velocity, cd_velocity);
     TASK_CD(e_window->data, GraphicsEvents, cd_events);
     SDL_Event *event;
+    float vx;
     int i;
 
     for (i = 0; i < cd_events->events->length; ++i) {
@@ -47,17 +48,34 @@ void t_player_move(Store *s, List *cd, List *e)
         cd_player->up.pressed = 2;
     }
 
-    if (cd_player->left.pressed)
-        cd_velocity->vx = -2.5;
-    if (cd_player->right.pressed)
-        cd_velocity->vx = 2.5;
-    if (cd_velocity->vx) {
-        if (cd_velocity->vx < 0)
-            cd_velocity->vx += 0.5;
-        if (cd_velocity->vx > 0)
-            cd_velocity->vx -= 0.5;
+    vx = cd_velocity->vx;
+
+    if (cd_player->left.pressed == 1)
+        vx = fminf(-2.5, vx);
+    if (cd_player->right.pressed == 1)
+        vx = fmaxf(2.5, vx);
+
+    if (cd_player->down.pressed == 1) {
+        vx *= 3;
+        if (cd_player->up.pressed)
+            cd_velocity->vy = -6;
+        cd_player->down.pressed = 2;
     }
 
+    if (vx) {
+        if (vx < 0) {
+            vx += 0.5;
+            if (vx < -16)
+                vx = -16;
+        }
+        if (vx > 0) {
+            vx -= 0.5;
+            if (vx > 16)
+                vx = 16;
+        }
+    }
+
+    cd_velocity->vx = vx;
     cd_position->x += cd_velocity->vx;
     cd_position->y += cd_velocity->vy;
 }
