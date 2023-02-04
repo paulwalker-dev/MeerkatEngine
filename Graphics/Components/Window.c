@@ -56,6 +56,7 @@ void cd_graphics_window_destroy(void *_cd)
     SDL_DestroyRenderer(cd->renderer);
     SDL_DestroyWindow(cd->window);
     SDL_Quit();
+    free(cd);
 }
 
 Component *c_graphics_window_create()

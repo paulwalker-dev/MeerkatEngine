@@ -55,13 +55,6 @@ void t_player_move(Store *s, List *cd, List *e)
     if (cd_player->right.pressed == 1)
         vx = fmaxf(2.5, vx);
 
-    if (cd_player->down.pressed == 1) {
-        vx *= 3;
-        if (cd_player->up.pressed)
-            cd_velocity->vy = -6;
-        cd_player->down.pressed = 2;
-    }
-
     if (vx) {
         if (vx < 0) {
             vx += 0.5;

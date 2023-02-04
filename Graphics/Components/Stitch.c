@@ -18,6 +18,7 @@ void cd_graphics_stitch_destroy(void *_cd)
     cd = _cd;
 
     list_free(cd->filenames);
+    free(cd);
 }
 
 Component *c_graphics_stitch_create()
