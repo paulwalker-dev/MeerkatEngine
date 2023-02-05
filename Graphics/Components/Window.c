@@ -26,11 +26,6 @@ void *cd_graphics_window_create()
     if (!window)
         panic("Failed to create window");
 
-    surface = SDL_GetWindowSurface(window);
-
-    if (!surface)
-        panic("Failed to get window surface");
-
     renderer = SDL_CreateRenderer(
         window, -1,
         SDL_RENDERER_ACCELERATED
@@ -43,7 +38,6 @@ void *cd_graphics_window_create()
 
     cd->open = 1;
     cd->window = window;
-    cd->surface = surface;
     cd->renderer = renderer;
 
     return cd;

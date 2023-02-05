@@ -6,7 +6,6 @@ typedef struct {
     int open;
     int width, height;
     SDL_Window *window;
-    SDL_Surface *surface;
     SDL_Renderer *renderer;
 } GraphicsWindowComponent;
 
