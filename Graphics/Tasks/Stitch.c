@@ -1,5 +1,6 @@
 #include "Stitch.h"
 #include "EngineMantle.h"
+#include "EnginePhysics.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
@@ -13,6 +14,7 @@ void t_stitch_image(Store *s, List *cd, List *e)
     TASK_CD(e_window->data, GraphicsWindow, cd_window);
     TASK_CD(cd, GraphicsImage, cd_image);
     TASK_CD(cd, GraphicsStitch, cd_stitch);
+    TASK_CD(cd, Size, cd_size);
     SDL_Surface *surface;
     SDL_Rect rect;
     char *filename;
@@ -31,6 +33,9 @@ void t_stitch_image(Store *s, List *cd, List *e)
     cd_image->surface = SDL_CreateRGBSurface(
         0, x, y, 32, 0, 0, 0, 0
     );
+
+    cd_size->w = x;
+    cd_size->h = y;
     
     for (x = 0; x < w; ++x)
         for (y = 0; y < h; ++y) {
@@ -50,7 +55,7 @@ void t_stitch_image(Store *s, List *cd, List *e)
 
             SDL_FreeSurface(surface);
         }
-    
+
     if (cd_image->texture)
         SDL_DestroyTexture(cd_image->texture);
     cd_image->texture = SDL_CreateTextureFromSurface(

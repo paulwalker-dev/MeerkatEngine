@@ -21,22 +21,8 @@ void t_info_run(List *cd, List *e)
            cd_position->y);
 }
 
-int main(int argv, char *argc[])
-{
-    Box *b;
+void init_player(Box *b) {
     Entity *e_player;
-
-    // Ensure assets can be accessed via relative paths
-    chdir(dirname(argc[0]));
-
-    b = box_create();
-
-    physics_create(b);
-    graphics_create(b);
-
-    box_component(b, c_dash_create);
-    box_component(b, c_player_create);
-    box_archetype(b, "Player", "Player", "Dynamic", "GraphicsStitch", "GraphicsImage", "Position", "Velocity", NULL);
 
     e_player = box_entity(b, "Player");
 
@@ -52,6 +38,44 @@ int main(int argv, char *argc[])
 
     TASK_CD(e_player->data, Dynamic, cd_dynamic);
     dynamic_append(cd_dynamic, component_find(b->s->components, "Dash"));
+}
+
+int main(int argv, char *argc[])
+{
+    Box *b;
+    Entity *e_player;
+    Entity *e_floor;
+
+    // Ensure assets can be accessed via relative paths
+    chdir(dirname(argc[0]));
+
+    b = box_create();
+
+    physics_create(b);
+    graphics_create(b);
+
+    box_component(b, c_dash_create);
+    box_component(b, c_player_create);
+    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsStitch", "GraphicsImage", "Position", "Size", "Velocity", NULL);
+
+    // BEGIN: Player Initialization
+    init_player(b);
+    // END: Player Initialization
+
+    // BEGIN: Floor Initialization
+    box_archetype(b, "Floor", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
+    e_floor = box_entity(b, "Floor");
+
+    TASK_CD(e_floor->data, GraphicsStitch, cd_stitch);
+    cd_stitch->width = 8;
+    cd_stitch->filenames = list_create();
+    for (int i = 0; i < 8; ++i) {
+        list_append(cd_stitch->filenames, "assets/grass.qoi");
+    }
+
+    TASK_CD(e_floor->data, Position, cd_position);
+    cd_position->y = 100;
+    // END: Floor Initialization
 
     box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);
     box_task(b, t_player_dash, "Dash", "Player", "Velocity", NULL);

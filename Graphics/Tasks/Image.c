@@ -13,6 +13,7 @@ void t_draw_image(Store *s, List *cd, List *e)
     TASK_E(e, GraphicsData, e_graphics);
     TASK_CD(cd, GraphicsImage, cd_image);
     TASK_CD(cd, Position, cd_position);
+    TASK_CD(cd, Size, cd_size);
     TASK_CD(e_graphics->data, GraphicsWindow, cd_window);
 
     SDL_Rect rect;
@@ -25,12 +26,14 @@ void t_draw_image(Store *s, List *cd, List *e)
         cd_image->texture = SDL_CreateTextureFromSurface(
             cd_window->renderer, cd_image->surface
         );
+        cd_size->w = cd_image->surface->w;
+        cd_size->h = cd_image->surface->h;
     }
     
-    rect.w = cd_image->surface->w;
-    rect.h = cd_image->surface->h;
-    rect.x = cd_position->x - rect.w / 2;
-    rect.y = cd_position->y - rect.h / 2;
+    rect.w = cd_size->w;
+    rect.h = cd_size->h;
+    rect.x = cd_position->x;
+    rect.y = cd_position->y;
 
     SDL_RenderCopy(
         cd_window->renderer,

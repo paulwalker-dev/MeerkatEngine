@@ -27,8 +27,8 @@ void graphics_create(Box *b)
     box_task(b, t_blank_window, "GraphicsWindow", NULL);
     box_task(b, t_get_events, "GraphicsEvents", NULL);
     box_task(b, t_event_quit, "GraphicsEvents", NULL);
-    box_task(b, t_stitch_image, "GraphicsStitch", "GraphicsImage", NULL);
-    box_task(b, t_draw_image, "GraphicsImage", "Position", NULL);
+    box_task(b, t_stitch_image, "GraphicsStitch", "GraphicsImage", "Size", NULL);
+    box_task(b, t_draw_image, "GraphicsImage", "Position", "Size", NULL);
     box_task(b, t_render, "GraphicsWindow", NULL);
 }
 

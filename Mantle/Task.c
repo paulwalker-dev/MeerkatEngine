@@ -1,5 +1,6 @@
 #include "Task.h"
 #include "Dynamic.h"
+#include "Extras.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -40,7 +41,7 @@ int task_filter(List *cd, List *l)
         c = list_get(l, i);
         if (c == NULL)
             return 1;
-        if (component_find(cd, c->name))
+        if (component_data_find(cd, c->name))
             ++cfound;
         if (cfound == l->length)
             return 0;
@@ -50,33 +51,15 @@ int task_filter(List *cd, List *l)
 
 void task_run(Store *s, Task *t, List *l)
 {
-    ComponentData *cd;
-    Dynamic *d;
     Entity *e;
     List *data;
     int i, j;
     
     for (i = 0; i < l->length; ++i) {
-        data = list_create();
         e = list_get(l, i);
-        d = NULL;
-        for (j = 0; j < e->data->length; ++j) {
-            cd = list_get(e->data, j);
-            list_append(data, cd);
-            if (!strcmp(cd->name, "Dynamic")) {
-                d = cd->data;
-            }
-        }
-        if (d) {
-            for (j = 0; j < d->data->length; ++j) {
-                cd = list_get(d->data, j);
-                list_append(data, cd);
-            }
-        }
-
+        data = entity_data_get(e);
         if (!task_filter(data, t->components))
             t->run(s, data, l);
-
         list_free(data);
     }
 }

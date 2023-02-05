@@ -5,3 +5,4 @@
 #include "../Store.h"
 #include "../lib/List.h"
 #include "../lib/Panic.h"
+#include "../lib/UniqueId.h"

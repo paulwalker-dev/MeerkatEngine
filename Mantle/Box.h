@@ -30,7 +30,7 @@ void box_component(Box *b, Component *(* init_c)());
 /**
  * Makes archetype initialization less tedious
  * @param name Name of archetype
- * @param[in] ... List of components
+ * @param component List of components
  */
 void box_archetype(Box *b, char *name, char *component, ...);
 
