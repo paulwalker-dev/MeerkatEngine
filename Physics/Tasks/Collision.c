@@ -19,6 +19,9 @@ void t_collision(Store *s, List *cd, List *e)
     int w, h;
     int i;
 
+    if (cd_physics->stationary)
+        return;
+
     x = cd_position->x;
     y = cd_position->y;
     w = cd_size->w;

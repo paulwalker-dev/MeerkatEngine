@@ -21,7 +21,8 @@ void t_info_run(List *cd, List *e)
            cd_position->y);
 }
 
-void init_player(Box *b) {
+void init_player(Box *b)
+{
     Entity *e_player;
 
     e_player = box_entity(b, "Player");
@@ -38,6 +39,28 @@ void init_player(Box *b) {
 
     TASK_CD(e_player->data, Dynamic, cd_dynamic);
     dynamic_append(cd_dynamic, component_find(b->s->components, "Dash"));
+
+    TASK_CD(e_player->data, Physics, cd_physics);
+    cd_physics->stationary = 0;
+}
+
+void init_tile(Box *b, char *filename, int x, int y, int w, int h)
+{
+    Entity *e_floor;
+
+    e_floor = box_entity(b, "Floor");
+
+    TASK_CD(e_floor->data, GraphicsStitch, cd_stitch);
+    cd_stitch->width = w;
+    cd_stitch->height = h;
+    cd_stitch->filenames = list_create();
+    for (int i = 0; i < w * h; ++i) {
+        list_append(cd_stitch->filenames, filename);
+    }
+
+    TASK_CD(e_floor->data, Position, cd_position);
+    cd_position->x = 8 * x;
+    cd_position->y = 8 * y;
 }
 
 int main(int argv, char *argc[])
@@ -64,17 +87,9 @@ int main(int argv, char *argc[])
 
     // BEGIN: Floor Initialization
     box_archetype(b, "Floor", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
-    e_floor = box_entity(b, "Floor");
-
-    TASK_CD(e_floor->data, GraphicsStitch, cd_stitch);
-    cd_stitch->width = 32;
-    cd_stitch->filenames = list_create();
-    for (int i = 0; i < 32; ++i) {
-        list_append(cd_stitch->filenames, "assets/grass.qoi");
-    }
-
-    TASK_CD(e_floor->data, Position, cd_position);
-    cd_position->y = 8 * 17;
+    init_tile(b, "assets/grass.qoi", 0, 17, 16, 1);
+    init_tile(b, "assets/stone.qoi", 16, 16, 16, 2);
+    init_tile(b, "assets/grass.qoi", 16, 15, 16, 1);
     // END: Floor Initialization
 
     box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);
