@@ -31,14 +31,19 @@ void t_collision(Store *s, List *cd, List *e)
     for (i = 0; i < e->length; ++i) {
         object = list_get(e, i);
         data = entity_data_get(object);
-        if (task_filter(data, l)) continue;
+        if (task_filter(data, l)) {
+            list_free(data);
+            continue;
+        };
 
         TASK_CD(data, Physics, cd_t_physics);
         TASK_CD(data, Position, cd_t_position);
         TASK_CD(data, Size, cd_t_size);
 
-        if (cd_physics->id == cd_t_physics->id)
+        if (cd_physics->id == cd_t_physics->id) {
+            list_free(data);
             continue;
+        }
 
         int tx, ty;
         int tw, th;
@@ -57,6 +62,8 @@ void t_collision(Store *s, List *cd, List *e)
             cd_position->y = ty - h;
             cd_velocity->vy = 0;
         }
+
+        list_free(data);
     }
 
     list_free(l);
