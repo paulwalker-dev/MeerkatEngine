@@ -67,14 +67,14 @@ int main(int argv, char *argc[])
     e_floor = box_entity(b, "Floor");
 
     TASK_CD(e_floor->data, GraphicsStitch, cd_stitch);
-    cd_stitch->width = 8;
+    cd_stitch->width = 32;
     cd_stitch->filenames = list_create();
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 32; ++i) {
         list_append(cd_stitch->filenames, "assets/grass.qoi");
     }
 
     TASK_CD(e_floor->data, Position, cd_position);
-    cd_position->y = 100;
+    cd_position->y = 8 * 17;
     // END: Floor Initialization
 
     box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);

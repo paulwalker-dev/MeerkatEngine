@@ -10,8 +10,8 @@ void *cd_graphics_window_create()
     SDL_Surface *surface;
     SDL_Renderer *renderer;
 
-    cd->width = 680;
-    cd->height = 480;
+    cd->width = 1280;
+    cd->height = 720;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         panic("Graphics init failed");
@@ -39,7 +39,7 @@ void *cd_graphics_window_create()
     if (!renderer)
         panic("Failed to initialize renderer");
 
-    SDL_RenderSetScale(renderer, 4, 4);
+    SDL_RenderSetScale(renderer, 5, 5);
 
     cd->open = 1;
     cd->window = window;
