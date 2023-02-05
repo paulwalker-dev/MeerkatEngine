@@ -12,6 +12,7 @@ typedef struct {
     PlayerKey down;
     PlayerKey left;
     PlayerKey right;
+    PlayerKey reset;
 } PlayerComponent;
 
 void *cd_player_create();

@@ -16,6 +16,7 @@ void player_update_key(PlayerComponent *player, SDL_Keycode key, int pressed)
     if (player->down.key == key) target = &player->down;
     if (player->left.key == key) target = &player->left;
     if (player->right.key == key) target = &player->right;
+    if (player->reset.key == key) target = &player->reset;
     if (target) {
         if (target->pressed < 2)
             target->pressed = pressed;
@@ -66,6 +67,12 @@ void t_player_move(Store *s, List *cd, List *e)
             if (vx > 16)
                 vx = 16;
         }
+    }
+
+    if (cd_player->reset.pressed == 1) {
+        cd_position->x = 0;
+        cd_position->y = 0;
+        cd_player->reset.pressed = 2;
     }
 
     cd_velocity->vx = vx;

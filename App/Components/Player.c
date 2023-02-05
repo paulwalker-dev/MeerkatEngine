@@ -16,6 +16,7 @@ void *cd_player_create()
     cd->down  = player_key_init(SDLK_s);
     cd->left  = player_key_init(SDLK_a);
     cd->right = player_key_init(SDLK_d);
+    cd->reset = player_key_init(SDLK_r);
     return cd;
 }
 
