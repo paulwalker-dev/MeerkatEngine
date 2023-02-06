@@ -81,16 +81,17 @@ int main(int argv, char *argc[])
     box_component(b, c_player_create);
     box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsStitch", "GraphicsImage", "Position", "Size", "Velocity", NULL);
 
+    // BEGIN: Floor Initialization
+    box_archetype(b, "Floor", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
+    init_tile(b, "assets/grass.qoi", 0, 11, 8, 1);
+    init_tile(b, "assets/stone.qoi", 8, 10, 8, 2);
+    init_tile(b, "assets/stone.qoi", 8, 3, 4, 5);
+    // END: Floor Initialization
+    
     // BEGIN: Player Initialization
     init_player(b);
     // END: Player Initialization
 
-    // BEGIN: Floor Initialization
-    box_archetype(b, "Floor", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
-    init_tile(b, "assets/grass.qoi", 0, 11, 9, 1);
-    init_tile(b, "assets/stone.qoi", 8, 10, 9, 2);
-    init_tile(b, "assets/grass.qoi", 8, 9, 9, 1);
-    // END: Floor Initialization
 
     box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);
     box_task(b, t_player_dash, "Dash", "Player", "Velocity", NULL);
