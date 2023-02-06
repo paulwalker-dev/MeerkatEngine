@@ -10,8 +10,8 @@ void *cd_graphics_window_create()
     SDL_Surface *surface;
     SDL_Renderer *renderer;
 
-    cd->width = 1280;
-    cd->height = 720;
+    cd->width = 680;
+    cd->height = 480;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         panic("Graphics init failed");

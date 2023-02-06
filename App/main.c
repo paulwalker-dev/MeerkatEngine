@@ -87,9 +87,9 @@ int main(int argv, char *argc[])
 
     // BEGIN: Floor Initialization
     box_archetype(b, "Floor", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
-    init_tile(b, "assets/grass.qoi", 0, 17, 16, 1);
-    init_tile(b, "assets/stone.qoi", 16, 16, 16, 2);
-    init_tile(b, "assets/grass.qoi", 16, 15, 16, 1);
+    init_tile(b, "assets/grass.qoi", 0, 11, 9, 1);
+    init_tile(b, "assets/stone.qoi", 8, 10, 9, 2);
+    init_tile(b, "assets/grass.qoi", 8, 9, 9, 1);
     // END: Floor Initialization
 
     box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);
