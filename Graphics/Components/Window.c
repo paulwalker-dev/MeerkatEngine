@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "SDL2/SDL.h"
 
+#define WINDOW_SCALE 3
+
 void *cd_graphics_window_create()
 {
     CD_INIT(GraphicsWindow, cd);
@@ -10,8 +12,8 @@ void *cd_graphics_window_create()
     SDL_Surface *surface;
     SDL_Renderer *renderer;
 
-    cd->width = 680;
-    cd->height = 480;
+    cd->width = 256 * WINDOW_SCALE;
+    cd->height = 144 * WINDOW_SCALE;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         panic("Graphics init failed");
@@ -34,7 +36,7 @@ void *cd_graphics_window_create()
     if (!renderer)
         panic("Failed to initialize renderer");
 
-    SDL_RenderSetScale(renderer, 5, 5);
+    SDL_RenderSetScale(renderer, WINDOW_SCALE, WINDOW_SCALE);
 
     cd->open = 1;
     cd->window = window;
