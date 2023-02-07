@@ -60,19 +60,22 @@ void t_collision(Store *s, List *cd, List *e)
             h + y > ty
         ) {
             if (x + w - cd_velocity->vx - 1 < tx) {
-                cd_position->x = tx - w;
+                x = tx - w;
                 cd_velocity->vx = 0;
             } else if (tx + tw - 1 < x - cd_velocity->vx) {
-                cd_position->x = tx + tw;
+                x = tx + tw;
                 cd_velocity->vx = 0;
             } else if (y - cd_velocity->vy < ty) {
-                cd_position->y = ty - h;
+                y = ty - h;
                 cd_velocity->vy = 0;
             } else {
-                cd_position->y = ty + th;
+                y = ty + th;
                 cd_velocity->vy = 0;
             }
         }
+
+        cd_position->x = x;
+        cd_position->y = y;
 
         list_free(data);
     }
