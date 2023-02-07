@@ -94,7 +94,7 @@ int main(int argv, char *argc[])
     // END: Player Initialization
 
 
-    box_task(b, t_player_move, "Player", "Position", "Velocity", NULL);
+    box_task(b, t_player_move, "Player", "Physics", "Position", "Velocity", NULL);
     box_task(b, t_player_dash, "Dash", "Player", "Velocity", NULL);
 
     graphics_loop(b);

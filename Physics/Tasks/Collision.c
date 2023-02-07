@@ -26,6 +26,7 @@ void t_collision(Store *s, List *cd, List *e)
     y = cd_position->y;
     w = cd_size->w;
     h = cd_size->h;
+    cd_physics->floored = 0;
     
     l = component_list_create(s, "Physics", "Position", "Size", NULL);
     for (i = 0; i < e->length; ++i) {
@@ -68,6 +69,7 @@ void t_collision(Store *s, List *cd, List *e)
             } else if (y - cd_velocity->vy < ty) {
                 y = ty - h;
                 cd_velocity->vy = 0;
+                cd_physics->floored = 1;
             } else {
                 y = ty + th;
                 cd_velocity->vy = 0;

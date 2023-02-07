@@ -13,6 +13,7 @@ typedef struct {
     PlayerKey left;
     PlayerKey right;
     PlayerKey reset;
+    int jump_count;
 } PlayerComponent;
 
 void *cd_player_create();

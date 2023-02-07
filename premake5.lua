@@ -103,7 +103,7 @@ project "EngineApp"
     useEnginePhysics()
     useEngineGraphics()
 
-    prelinkcommands {
+    postbuildcommands {
         "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
     }
 

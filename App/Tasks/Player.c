@@ -30,6 +30,7 @@ void t_player_move(Store *s, List *cd, List *e)
     TASK_E(e, GraphicsData, e_window);
     TASK_CD(cd, Player, cd_player);
     TASK_CD(cd, Position, cd_position);
+    TASK_CD(cd, Physics, cd_physics);
     TASK_CD(cd, Velocity, cd_velocity);
     TASK_CD(e_window->data, GraphicsEvents, cd_events);
     SDL_Event *event;
@@ -44,8 +45,12 @@ void t_player_move(Store *s, List *cd, List *e)
             player_update_key(cd_player, event->key.keysym.sym, 1);
     }
 
-    if (cd_player->up.pressed == 1) {
-        cd_velocity->vy -= 6;
+    if (cd_physics->floored) {
+        cd_player->jump_count = 0;
+    }
+
+    if (cd_player->up.pressed == 1 && cd_player->jump_count++ < 2) {
+        cd_velocity->vy = -6;
         cd_player->up.pressed = 2;
     }
 

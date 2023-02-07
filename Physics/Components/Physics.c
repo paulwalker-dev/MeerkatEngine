@@ -6,6 +6,7 @@ void *cd_physics_create()
     CD_INIT(Physics, cd);
     cd->id = generate_id();
     cd->stationary = 1;
+    cd->floored = 0;
     return cd;
 }
 
