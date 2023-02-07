@@ -35,9 +35,11 @@ void t_draw_image(Store *s, List *cd, List *e)
     rect.x = cd_position->x;
     rect.y = cd_position->y;
 
-    SDL_RenderCopy(
+    SDL_RenderCopyEx(
         cd_window->renderer,
         cd_image->texture,
-        NULL, &rect
+        NULL, &rect,
+        0, NULL,
+        cd_image->flip
     );
 }

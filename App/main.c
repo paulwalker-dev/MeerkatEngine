@@ -75,7 +75,6 @@ int main(int argv, char *argc[])
 
     box_component(b, c_dash_create);
     box_component(b, c_player_create);
-    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsImage", "Position", "Size", "Velocity", NULL);
 
     // BEGIN: Tile Initialization
     box_archetype(b, "Tile", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
@@ -83,10 +82,11 @@ int main(int argv, char *argc[])
     // END: Tile Initialization
     
     // BEGIN: Player Initialization
+    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsImage", "Position", "Size", "Velocity", NULL);
     init_player(b);
     // END: Player Initialization
 
-    box_task(b, t_player_move, "Player", "Physics", "Position", "Velocity", NULL);
+    box_task(b, t_player_move, "Player", "Physics", "Position", "Velocity", "GraphicsImage", NULL);
     box_task(b, t_player_dash, "Dash", "Player", "Velocity", NULL);
 
     graphics_loop(b);

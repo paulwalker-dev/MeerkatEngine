@@ -30,6 +30,7 @@ void t_player_move(Store *s, List *cd, List *e)
     TASK_E(e, GraphicsData, e_window);
     TASK_CD(cd, Player, cd_player);
     TASK_CD(cd, Position, cd_position);
+    TASK_CD(cd, GraphicsImage, cd_image);
     TASK_CD(cd, Physics, cd_physics);
     TASK_CD(cd, Velocity, cd_velocity);
     TASK_CD(e_window->data, GraphicsEvents, cd_events);
@@ -56,10 +57,15 @@ void t_player_move(Store *s, List *cd, List *e)
 
     vx = cd_velocity->vx;
 
-    if (cd_player->left.pressed == 1)
+    if (cd_player->left.pressed == 1) {
         vx = fminf(-2.5, vx);
-    if (cd_player->right.pressed == 1)
+        cd_image->flip = SDL_FLIP_HORIZONTAL;
+    }
+
+    if (cd_player->right.pressed == 1) {
         vx = fmaxf(2.5, vx);
+        cd_image->flip = SDL_FLIP_NONE;
+    }
 
     if (vx) {
         if (vx < 0) {

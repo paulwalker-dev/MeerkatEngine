@@ -9,6 +9,7 @@ void *cd_graphics_image_create()
     cd->filename = "assets/unknown.qoi";
     cd->surface = NULL;
     cd->texture = NULL;
+    cd->flip = 0;
 
     return cd;
 }
