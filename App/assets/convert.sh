@@ -1,19 +1,6 @@
 #!/bin/sh
-
-ASSETS="$(dirname $0)"
-OBJ_DIR="$1"
-BIN_DIR="$2"
-
-rm -rf "${OBJ_DIR}"/assets
-deno run --allow-net=deno.land \
-    --allow-read --allow-write \
-    "${ASSETS}"/tileset2assets.ts \
-    -m "${ASSETS}"/tileset.json \
-    "${ASSETS}"/tileset.png \
-    "${OBJ_DIR}"/assets
-
-rm -rf "${BIN_DIR}"/assets
-mkdir -p "${BIN_DIR}"/assets
-for i in "${OBJ_DIR}"/assets/*.png; do
-	convert $i "${BIN_DIR}"/assets/"$(basename $i .png)".qoi
-done
+mkdir -p "$1"/assets
+find "$(dirname $0)" -iname '*.png' |
+    while read asset; do
+        convert ${asset} "$1"/assets/$(basename ${asset} .png).qoi
+    done

@@ -6,7 +6,7 @@ void *cd_graphics_image_create()
 {
     CD_INIT(GraphicsImage, cd);
 
-    cd->filename = "assets/default.qoi";
+    cd->filename = "assets/unknown.qoi";
     cd->surface = NULL;
     cd->texture = NULL;
 

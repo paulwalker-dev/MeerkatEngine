@@ -1,6 +1,5 @@
 #!/bin/sh
-
-alias aseprite="'${ASEPRITE}'"
-
-aseprite -b --export-tileset tileset.aseprite --sheet-type horizontal --sheet tileset.png
-aseprite -b logo.aseprite --scale 5 --save-as logo.png
+find . -iname '*.aseprite' |
+    while read asset; do
+        aseprite -b ${asset} --save-as ${asset%.aseprite}.png
+    done

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "SDL2/SDL.h"
 
-#define WINDOW_SCALE 3
+#define WINDOW_SCALE 4
 
 void *cd_graphics_window_create()
 {

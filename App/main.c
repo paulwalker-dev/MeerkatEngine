@@ -27,12 +27,8 @@ void init_player(Box *b)
 
     e_player = box_entity(b, "Player");
 
-    TASK_CD(e_player->data, GraphicsStitch, cd_stitch);
-    cd_stitch->width  = 1;
-    cd_stitch->height = 2;
-    cd_stitch->filenames = list_create();
-    list_append(cd_stitch->filenames, "assets/player_head_center.qoi");
-    list_append(cd_stitch->filenames, "assets/player_body.qoi");
+    TASK_CD(e_player->data, GraphicsImage, cd_image);
+    cd_image->filename = "assets/wizard.qoi";
 
     TASK_CD(e_player->data, Player, cd_player);
     cd_player->up.key = SDLK_SPACE;
@@ -48,7 +44,7 @@ void init_tile(Box *b, char *filename, int x, int y, int w, int h)
 {
     Entity *e_floor;
 
-    e_floor = box_entity(b, "Floor");
+    e_floor = box_entity(b, "Tile");
 
     TASK_CD(e_floor->data, GraphicsStitch, cd_stitch);
     cd_stitch->width = w;
@@ -79,7 +75,7 @@ int main(int argv, char *argc[])
 
     box_component(b, c_dash_create);
     box_component(b, c_player_create);
-    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsStitch", "GraphicsImage", "Position", "Size", "Velocity", NULL);
+    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsImage", "Position", "Size", "Velocity", NULL);
 
     // BEGIN: Tile Initialization
     box_archetype(b, "Tile", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
@@ -89,7 +85,6 @@ int main(int argv, char *argc[])
     // BEGIN: Player Initialization
     init_player(b);
     // END: Player Initialization
-
 
     box_task(b, t_player_move, "Player", "Physics", "Position", "Velocity", NULL);
     box_task(b, t_player_dash, "Dash", "Player", "Velocity", NULL);

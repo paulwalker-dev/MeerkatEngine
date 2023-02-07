@@ -109,7 +109,7 @@ project "EngineApp"
     useEngineGraphics()
 
     prelinkcommands {
-        "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
+        "../App/assets/convert.sh %{cfg.buildtarget.directory}"
     }
 
     filter "options:install"
