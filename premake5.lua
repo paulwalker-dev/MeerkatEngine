@@ -10,6 +10,11 @@ workspace "MeerkatEngine"
         defines { "NDEBUG" }
         optimize "On"
 
+newoption {
+    trigger = "install",
+    description = "Install MeerkatEngine",
+}
+
 function useSDL2()
     filter "system:Windows"
         linkoptions {
@@ -103,9 +108,19 @@ project "EngineApp"
     useEnginePhysics()
     useEngineGraphics()
 
-    postbuildcommands {
+    prelinkcommands {
         "../App/assets/convert.sh %{cfg.objdir} %{cfg.buildtarget.directory}"
     }
+
+    filter "options:install"
+        postbuildcommands {
+            "{MKDIR} $(PREFIX)/bin",
+            "{MKDIR} $(PREFIX)/share",
+            "{RMDIR} $(PREFIX)/share/MeerkatEngine",
+            "{COPYDIR} %{cfg.buildtarget.directory} $(PREFIX)/share/MeerkatEngine",
+            "{DELETE} $(PREFIX)/bin/MeerkatEngine",
+            "{COPYFILE} ../App/script/MeerkatEngine $(PREFIX)/bin/MeerkatEngine",
+        }
 
     filter "system:Windows"
         linkoptions {
