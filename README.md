@@ -7,7 +7,6 @@ A game engine project with ecs at it's core (found in `/Core`).
 
 ## Dependencies
 * `cc` - Any C compiler supported by premake (`#pragma once` support also required)
-* `deno` - Used in various parts of the engine build system
 * `imagemagick` - Used for image manipulation
 * `premake5` - Used to generate makefiles
 * `sdl2` - Used in the graphics api
