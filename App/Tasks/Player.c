@@ -67,26 +67,13 @@ void t_player_move(Store *s, List *cd, List *e)
         cd_image->flip = SDL_FLIP_NONE;
     }
 
-    if (vx) {
-        if (vx < 0) {
-            vx += 0.5;
-            if (vx < -16)
-                vx = -16;
-        }
-        if (vx > 0) {
-            vx -= 0.5;
-            if (vx > 16)
-                vx = 16;
-        }
-    }
-
     if (cd_player->reset.pressed == 1) {
         cd_position->x = 16;
         cd_position->y = 16;
+        cd_velocity->vx = 0;
+        cd_velocity->vy = 0;
         cd_player->reset.pressed = 2;
     }
 
     cd_velocity->vx = vx;
-    cd_position->x += cd_velocity->vx;
-    cd_position->y += cd_velocity->vy;
 }

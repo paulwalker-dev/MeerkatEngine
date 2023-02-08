@@ -81,7 +81,7 @@ int main(int argv, char *argc[])
     box_component(b, c_player_create);
 
     // BEGIN: Tile Initialization
-    box_archetype(b, "Tile", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
+    box_archetype(b, "Tile", "Physics", "Position", "Size", "GraphicsStitch", "GraphicsImage", NULL);
     init_tile(b, "assets/grass.qoi", 1, 17, 30, 1);
     init_tile(b, "assets/stone.qoi", 0, 0, 1, 18);
     init_tile(b, "assets/stone.qoi", 31, 0, 1, 18);
