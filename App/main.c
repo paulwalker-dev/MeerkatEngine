@@ -6,6 +6,10 @@
 #include <libgen.h>
 #include <unistd.h>
 
+#include "Components/Input.h"
+
+#include "Tasks/Input.h"
+
 void init_tile(Box *b, char *filename, int x, int y, int w, int h)
 {
     Entity *e_floor;
@@ -25,6 +29,12 @@ void init_tile(Box *b, char *filename, int x, int y, int w, int h)
     cd_position->y = 8 * y;
 }
 
+void t_check_jump(Store *s, List *cd, List *e)
+{
+    TASK_E(e, AppController, e_controller);
+    TASK_CD(e_controller->data, Input, cd_input);
+}
+
 int main(int argv, char *argc[])
 {
     Box *b;
@@ -38,6 +48,12 @@ int main(int argv, char *argc[])
 
     physics_create(b);
     graphics_create(b);
+
+    box_component(b, c_input_create);
+    box_archetype(b, "AppController", "Input", NULL);
+    box_entity(b, "AppController");
+    box_task(b, t_update_input, "Input", NULL);
+    box_task(b, t_check_jump, "Size", NULL);
 
     // BEGIN: Tile Initialization
     box_archetype(b, "Tile", "Physics", "Position", "Size", "GraphicsStitch", "GraphicsImage", NULL);
