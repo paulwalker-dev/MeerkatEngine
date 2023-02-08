@@ -1,73 +1,12 @@
-#include "Player.h"
-#include "EngineCore.h"
-#include "EnginePhysics.h"
-#include "EngineGraphics.h"
-#include <math.h>
-#include "SDL2/SDL.h"
+// if (cd_physics->floored && cd_player->up.pressed)
+//     cd_velocity->vy = -5;
 
-#include "../Components/Player.h"
+// if (cd_player->left.pressed == 1) {
+//     vx = fminf(-2.5, vx);
+//     cd_image->flip = SDL_FLIP_HORIZONTAL;
+// }
 
-#define PI 3.14159265
-
-void player_update_key(PlayerComponent *player, SDL_Keycode key, int pressed)
-{
-    PlayerKey *target = NULL;
-    if (player->up.key == key) target = &player->up;
-    if (player->down.key == key) target = &player->down;
-    if (player->left.key == key) target = &player->left;
-    if (player->right.key == key) target = &player->right;
-    if (player->reset.key == key) target = &player->reset;
-    if (target) {
-        if (target->pressed < 2)
-            target->pressed = pressed;
-        else if (pressed == 0)
-            target->pressed = 0;
-    }
-}
-
-void t_player_move(Store *s, List *cd, List *e)
-{
-    TASK_E(e, GraphicsData, e_window);
-    TASK_CD(cd, Player, cd_player);
-    TASK_CD(cd, Position, cd_position);
-    TASK_CD(cd, GraphicsImage, cd_image);
-    TASK_CD(cd, Physics, cd_physics);
-    TASK_CD(cd, Velocity, cd_velocity);
-    TASK_CD(e_window->data, GraphicsEvents, cd_events);
-    SDL_Event *event;
-    float vx;
-    int i;
-
-    for (i = 0; i < cd_events->events->length; ++i) {
-        event = list_get(cd_events->events, i);
-        if (event->type == SDL_KEYUP)
-            player_update_key(cd_player, event->key.keysym.sym, 0);
-        if (event->type == SDL_KEYDOWN)
-            player_update_key(cd_player, event->key.keysym.sym, 1);
-    }
-
-    if (cd_physics->floored && cd_player->up.pressed)
-        cd_velocity->vy = -5;
-
-    vx = cd_velocity->vx;
-
-    if (cd_player->left.pressed == 1) {
-        vx = fminf(-2.5, vx);
-        cd_image->flip = SDL_FLIP_HORIZONTAL;
-    }
-
-    if (cd_player->right.pressed == 1) {
-        vx = fmaxf(2.5, vx);
-        cd_image->flip = SDL_FLIP_NONE;
-    }
-
-    if (cd_player->reset.pressed == 1) {
-        cd_position->x = 16;
-        cd_position->y = 16;
-        cd_velocity->vx = 0;
-        cd_velocity->vy = 0;
-        cd_player->reset.pressed = 2;
-    }
-
-    cd_velocity->vx = vx;
-}
+// if (cd_player->right.pressed == 1) {
+//     vx = fmaxf(2.5, vx);
+//     cd_image->flip = SDL_FLIP_NONE;
+// }
