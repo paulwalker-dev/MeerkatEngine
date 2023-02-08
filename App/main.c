@@ -38,6 +38,10 @@ void init_player(Box *b)
 
     TASK_CD(e_player->data, Physics, cd_physics);
     cd_physics->stationary = 0;
+
+    TASK_CD(e_player->data, Position, cd_position);
+    cd_position->x = 16;
+    cd_position->y = 16;
 }
 
 void init_tile(Box *b, char *filename, int x, int y, int w, int h)
@@ -78,7 +82,10 @@ int main(int argv, char *argc[])
 
     // BEGIN: Tile Initialization
     box_archetype(b, "Tile", "Physics", "Position", "Size", "Velocity", "GraphicsStitch", "GraphicsImage", NULL);
-    init_tile(b, "assets/grass.qoi", 0, 17, 32, 1);
+    init_tile(b, "assets/grass.qoi", 1, 17, 30, 1);
+    init_tile(b, "assets/stone.qoi", 0, 0, 1, 18);
+    init_tile(b, "assets/stone.qoi", 31, 0, 1, 18);
+    init_tile(b, "assets/stone.qoi", 16, 9, 5, 3);
     // END: Tile Initialization
     
     // BEGIN: Player Initialization

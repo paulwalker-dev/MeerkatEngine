@@ -81,8 +81,8 @@ void t_player_move(Store *s, List *cd, List *e)
     }
 
     if (cd_player->reset.pressed == 1) {
-        cd_position->x = 0;
-        cd_position->y = 0;
+        cd_position->x = 16;
+        cd_position->y = 16;
         cd_player->reset.pressed = 2;
     }
 
