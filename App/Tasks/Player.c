@@ -46,14 +46,8 @@ void t_player_move(Store *s, List *cd, List *e)
             player_update_key(cd_player, event->key.keysym.sym, 1);
     }
 
-    if (cd_physics->floored) {
-        cd_player->jump_count = 0;
-    }
-
-    if (cd_player->up.pressed == 1 && cd_player->jump_count++ < 2) {
-        cd_velocity->vy = -6;
-        cd_player->up.pressed = 2;
-    }
+    if (cd_physics->floored && cd_player->up.pressed)
+        cd_velocity->vy = -5;
 
     vx = cd_velocity->vx;
 

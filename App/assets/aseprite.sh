@@ -1,5 +1,10 @@
 #!/bin/sh
+find . -iname '*.png' |
+    while read asset; do
+        rm "${asset}"
+    done
+
 find . -iname '*.aseprite' |
     while read asset; do
-        aseprite -b ${asset} --save-as ${asset%.aseprite}.png
+        aseprite -b "${asset}" --save-as "${asset%.aseprite}".png
     done
