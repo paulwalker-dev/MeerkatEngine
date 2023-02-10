@@ -5,6 +5,7 @@
 typedef struct {
     Store *s;
     List *tasks;
+    int task_priority;
 } Box;
 
 /**
@@ -39,6 +40,12 @@ void box_archetype(Box *b, char *name, char *component, ...);
  * @param archetype Name of the parent archetype
  */
 Entity *box_entity(Box *b, char *archetype);
+
+/**
+ * Set priority on new tasks
+ * @param priority New default priority
+ */
+void box_priority(Box *b, int priority);
 
 /**
  * Makes task initialization less tedious

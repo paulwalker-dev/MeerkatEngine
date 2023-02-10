@@ -9,6 +9,7 @@ Task *task_create(TASK_POINTER)
     Task *t;
 
     t = malloc(sizeof(Task));
+    t->priority = 0;
     t->components = list_create();
     t->run = run;
     return t;
@@ -53,7 +54,7 @@ void task_run(Store *s, Task *t, List *l)
 {
     Entity *e;
     List *data;
-    int i, j;
+    int i;
     
     for (i = 0; i < l->length; ++i) {
         e = list_get(l, i);
