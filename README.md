@@ -2,8 +2,6 @@
 # Meerkat Engine
 Just a hobby game engine (WIP)
 
-**CI builds for linux are currently broken**
-
 ## About
 A game engine project with ecs at it's core (found in `/Core`).
 

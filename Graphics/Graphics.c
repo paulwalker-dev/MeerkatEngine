@@ -24,6 +24,7 @@ void graphics_create(Box *b)
                   "GraphicsEvents", NULL);
     box_entity(b, "GraphicsData");
 
+    box_priority(b, 2);
     box_task(b, t_blank_window, "GraphicsWindow", NULL);
     box_task(b, t_get_events, "GraphicsEvents", NULL);
     box_task(b, t_event_quit, "GraphicsEvents", NULL);

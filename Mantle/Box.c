@@ -26,12 +26,15 @@ void box_destroy(Box *b)
 
 void box_update(Box *b)
 {
-    int i;
     Task *t;
+    int i, j;
 
-    for (i = 0; i < b->tasks->length; ++i) {
-        t = list_get(b->tasks, i);
-        task_run(b->s, t, b->s->entities);
+    for (i = 0; i < 10; ++i) {
+        for (j = 0; j < b->tasks->length; ++j) {
+            t = list_get(b->tasks, j);
+            if (t->priority != i) continue;
+            task_run(b->s, t, b->s->entities);
+        }
     }
 }
 
@@ -66,6 +69,12 @@ Entity *box_entity(Box *b, char *archetype)
     return e;
 }
 
+void box_priority(Box *b, int priority)
+{
+    b->task_priority = priority;
+}
+
+
 void box_task(Box *b, TASK_POINTER, char *component, ...)
 {
     Task *t;
@@ -73,6 +82,7 @@ void box_task(Box *b, TASK_POINTER, char *component, ...)
     va_list ap;
 
     t = task_create(run);
+    t->priority = b->task_priority;
     list_append(b->tasks, t);
 
     va_start(ap, component);

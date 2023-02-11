@@ -6,43 +6,13 @@
 #include <libgen.h>
 #include <unistd.h>
 
-#include "Components/Dash.h"
+#include "Components/Input.h"
 #include "Components/Player.h"
+#include "Components/Solid.h"
 
-#include "Tasks/Dash.h"
+#include "Tasks/Input.h"
 #include "Tasks/Player.h"
-
-void t_info_run(List *cd, List *e)
-{
-    TASK_CD(cd, Position, cd_position);
-    
-    printf("Position: { x: %d, y: %d }\n",
-           cd_position->x,
-           cd_position->y);
-}
-
-void init_player(Box *b)
-{
-    Entity *e_player;
-
-    e_player = box_entity(b, "Player");
-
-    TASK_CD(e_player->data, GraphicsImage, cd_image);
-    cd_image->filename = "assets/wizard.qoi";
-
-    TASK_CD(e_player->data, Player, cd_player);
-    cd_player->up.key = SDLK_SPACE;
-
-    TASK_CD(e_player->data, Dynamic, cd_dynamic);
-    dynamic_append(cd_dynamic, component_find(b->s->components, "Dash"));
-
-    TASK_CD(e_player->data, Physics, cd_physics);
-    cd_physics->stationary = 0;
-
-    TASK_CD(e_player->data, Position, cd_position);
-    cd_position->x = 16;
-    cd_position->y = 16;
-}
+#include "Tasks/Solid.h"
 
 void init_tile(Box *b, char *filename, int x, int y, int w, int h)
 {
@@ -67,7 +37,6 @@ int main(int argv, char *argc[])
 {
     Box *b;
     Entity *e_player;
-    Entity *e_floor;
 
     // Ensure assets can be accessed via relative paths
     chdir(dirname(argc[0]));
@@ -77,8 +46,31 @@ int main(int argv, char *argc[])
     physics_create(b);
     graphics_create(b);
 
-    box_component(b, c_dash_create);
+    box_priority(b, 0);
+
+    box_component(b, c_input_create);
+    box_archetype(b, "AppController", "Input", NULL);
+    box_entity(b, "AppController");
+    box_task(b, t_update_input, "Input", NULL);
+
+    // BEGIN: Player Initialization
     box_component(b, c_player_create);
+    box_component(b, c_solid_create);
+    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "Position", "Size", "Velocity", "GraphicsImage", NULL);
+    e_player = box_entity(b, "Player");
+    TASK_CD(e_player->data, Dynamic, cd_dynamic);
+    TASK_CD(e_player->data, GraphicsImage, cd_image);
+    TASK_CD(e_player->data, Physics, cd_physics);
+    TASK_CD(e_player->data, Position, cd_position);
+    dynamic_append(cd_dynamic, component_find(b->s->components, "Solid"));
+    cd_image->filename = "assets/player.qoi";
+    cd_physics->stationary = 0;
+    cd_position->x = 16;
+    cd_position->y = 16;
+
+    box_task(b, t_player_solid, "Solid", "Physics", "Velocity", NULL);
+    box_task(b, t_player_all, "Player", "GraphicsImage", NULL);
+    // END: Initialization
 
     // BEGIN: Tile Initialization
     box_archetype(b, "Tile", "Physics", "Position", "Size", "GraphicsStitch", "GraphicsImage", NULL);
@@ -87,14 +79,6 @@ int main(int argv, char *argc[])
     init_tile(b, "assets/stone.qoi", 31, 0, 1, 18);
     init_tile(b, "assets/stone.qoi", 16, 9, 5, 3);
     // END: Tile Initialization
-    
-    // BEGIN: Player Initialization
-    box_archetype(b, "Player", "Player", "Dynamic", "Physics", "GraphicsImage", "Position", "Size", "Velocity", NULL);
-    init_player(b);
-    // END: Player Initialization
-
-    box_task(b, t_player_move, "Player", "Physics", "Position", "Velocity", "GraphicsImage", NULL);
-    box_task(b, t_player_dash, "Dash", "Player", "Velocity", NULL);
 
     graphics_loop(b);
     box_destroy(b);

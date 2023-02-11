@@ -16,6 +16,7 @@
 #define TASK_POINTER void (* run)(Store *s, List *cd, List *e)
 
 typedef struct {
+    int priority;
     List *components;
     TASK_POINTER;
 } Task;
