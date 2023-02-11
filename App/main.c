@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "Components/Input.h"
+#include "Components/Player.h"
 
 #include "Tasks/Input.h"
 
@@ -33,7 +34,6 @@ int main(int argv, char *argc[])
 {
     Box *b;
     Entity *e_player;
-    Entity *e_floor;
 
     // Ensure assets can be accessed via relative paths
     chdir(dirname(argc[0]));
@@ -49,6 +49,19 @@ int main(int argv, char *argc[])
     box_archetype(b, "AppController", "Input", NULL);
     box_entity(b, "AppController");
     box_task(b, t_update_input, "Input", NULL);
+
+    // BEGIN: Player Initialization
+    box_component(b, c_player_create);
+    box_archetype(b, "Player", "Player", "Physics", "Position", "Size", "Velocity", "GraphicsImage", NULL);
+    e_player = box_entity(b, "Player");
+    TASK_CD(e_player->data, GraphicsImage, cd_image);
+    TASK_CD(e_player->data, Physics, cd_physics);
+    TASK_CD(e_player->data, Position, cd_position);
+    cd_image->filename = "assets/player.qoi";
+    cd_physics->stationary = 0;
+    cd_position->x = 16;
+    cd_position->y = 16;
+    // END: Initialization
 
     // BEGIN: Tile Initialization
     box_archetype(b, "Tile", "Physics", "Position", "Size", "GraphicsStitch", "GraphicsImage", NULL);
