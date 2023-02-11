@@ -11,7 +11,7 @@ void t_player_solid(Store *s, List *cd, List *e)
     TASK_CD(e_controller->data, Input, cd_input);
     TASK_CD(cd, Physics, cd_physics);
     TASK_CD(cd, Velocity, cd_velocity);
-    int jump, left, right;
+    int jump;
     float vx;
 
     jump = input_key_status(cd_input, "jump");
