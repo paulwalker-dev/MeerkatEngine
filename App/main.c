@@ -11,6 +11,7 @@
 #include "Components/Solid.h"
 
 #include "Tasks/Input.h"
+#include "Tasks/Player.h"
 #include "Tasks/Solid.h"
 
 void init_tile(Box *b, char *filename, int x, int y, int w, int h)
@@ -68,6 +69,7 @@ int main(int argv, char *argc[])
     cd_position->y = 16;
 
     box_task(b, t_player_solid, "Solid", "Physics", "Velocity", NULL);
+    box_task(b, t_player_all, "Player", "GraphicsImage", NULL);
     // END: Initialization
 
     // BEGIN: Tile Initialization
