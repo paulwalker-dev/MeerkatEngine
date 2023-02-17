@@ -7,10 +7,12 @@
 #include <unistd.h>
 
 #include "Components/Input.h"
+#include "Components/Liquid.h"
 #include "Components/Player.h"
 #include "Components/Solid.h"
 
 #include "Tasks/Input.h"
+#include "Tasks/Liquid.h"
 #include "Tasks/Player.h"
 #include "Tasks/Solid.h"
 
@@ -55,21 +57,21 @@ int main(int argv, char *argc[])
 
     // BEGIN: Player Initialization
     box_component(b, c_player_create);
-    box_component(b, c_solid_create);
     box_archetype(b, "Player", "Player", "Dynamic", "Physics", "Position", "Size", "Velocity", "GraphicsImage", NULL);
     e_player = box_entity(b, "Player");
-    TASK_CD(e_player->data, Dynamic, cd_dynamic);
     TASK_CD(e_player->data, GraphicsImage, cd_image);
     TASK_CD(e_player->data, Physics, cd_physics);
     TASK_CD(e_player->data, Position, cd_position);
-    dynamic_append(cd_dynamic, component_find(b->s->components, "Solid"));
     cd_image->filename = "assets/player.qoi";
     cd_physics->stationary = 0;
     cd_position->x = 16;
     cd_position->y = 16;
 
-    box_task(b, t_player_solid, "Solid", "Physics", "Velocity", NULL);
-    box_task(b, t_player_all, "Player", "GraphicsImage", NULL);
+    box_component(b, c_solid_create);
+    box_component(b, c_liquid_create);
+    box_task(b, t_player_solid, "Player", "Solid", "Physics", "Velocity", NULL);
+    box_task(b, t_player_liquid, "Player", "Liquid", "Physics", "Velocity", NULL);
+    box_task(b, t_player_all, "Player", "Dynamic", "GraphicsImage", NULL);
     // END: Initialization
 
     // BEGIN: Tile Initialization

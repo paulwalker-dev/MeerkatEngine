@@ -3,7 +3,7 @@
 Just a hobby game engine (WIP)
 
 ## About
-A game engine project with ecs at it's core (found in `/Core`).
+A game engine project with ecs at it's core (found in `/Core` and `/Mantle`).
 
 ## Dependencies
 * `cc` - Any C compiler supported by premake (`#pragma once` support also required)

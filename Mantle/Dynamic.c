@@ -42,6 +42,7 @@ void dynamic_drop(Dynamic *d, char *name)
     ComponentData *cd;
     int i, j;
 
+    c = NULL;
     for (i = 0; i < d->components->length; ++i) {
         c = list_get(d->components, i);
         if (!c) return;
@@ -54,7 +55,7 @@ void dynamic_drop(Dynamic *d, char *name)
         if (cd->name == name) break;
     }
 
-    component_data_destroy(c, cd);
+    if (c) component_data_destroy(c, cd);
 
     list_pop(d->components, i);
     list_pop(d->data, j);
