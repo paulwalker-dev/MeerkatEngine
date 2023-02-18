@@ -43,6 +43,10 @@ void *cd_input_create()
         "right",
         SDLK_d
     ));
+    list_append(cd->keys, input_key_create(
+        "liquid",
+        SDLK_s
+    ));
 
     return cd;
 }

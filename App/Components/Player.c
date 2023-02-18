@@ -4,7 +4,7 @@
 void *cd_player_create()
 {
     CD_INIT(Player, cd);
-    cd->state = "Liquid";
+    cd->state = "";
     cd->old_state = "";
     return cd;
 }

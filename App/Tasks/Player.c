@@ -17,12 +17,16 @@ void t_player_all(Store *s, List *cd, List *e)
     Component *c;
     char *state, *old_state;
 
+    cd_player->state = input_key_status(cd_input, "liquid") ?
+        "Liquid" : "Solid";
+
     state = cd_player->state;
     old_state = cd_player->old_state;
 
     if (strcmp(state, old_state)) {
         // dynamic_drop only drops component if in dynamic
-        dynamic_drop(cd_dynamic, old_state);
+        c = component_find(s->components, old_state);
+        if (c) dynamic_drop(cd_dynamic, c->name);
         c = component_find(s->components, state);
         if (c) dynamic_append(cd_dynamic, c);
         cd_player->old_state = state;

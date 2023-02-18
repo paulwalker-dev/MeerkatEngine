@@ -49,16 +49,18 @@ void dynamic_drop(Dynamic *d, char *name)
         if (c->name == name) break;
     }
 
+    cd = NULL;
     for (j = 0; i < d->data->length; ++i) {
         cd = list_get(d->data, i);
         if (!cd) return;
         if (cd->name == name) break;
     }
 
-    if (c) component_data_destroy(c, cd);
-
-    list_pop(d->components, i);
-    list_pop(d->data, j);
+    if (c && cd) {
+        component_data_destroy(c, cd);
+        list_pop(d->components, i);
+        list_pop(d->data, j);
+    }
 }
 
 void *cd_dynamic_create()
