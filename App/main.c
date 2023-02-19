@@ -59,10 +59,8 @@ int main(int argv, char *argc[])
     box_component(b, c_player_create);
     box_archetype(b, "Player", "Player", "Dynamic", "Physics", "Position", "Size", "Velocity", "GraphicsImage", NULL);
     e_player = box_entity(b, "Player");
-    TASK_CD(e_player->data, GraphicsImage, cd_image);
     TASK_CD(e_player->data, Physics, cd_physics);
     TASK_CD(e_player->data, Position, cd_position);
-    cd_image->filename = "assets/player.qoi";
     cd_physics->stationary = 0;
     cd_position->x = 16;
     cd_position->y = 16;

@@ -1,4 +1,7 @@
 #!/bin/sh
+
+cd "$(dirname "$0")"
+
 find . -iname '*.png' |
     while read asset; do
         rm "${asset}"

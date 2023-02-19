@@ -7,6 +7,12 @@
 #include "../Components/Input.h"
 #include "../Components/Player.h"
 
+// Shift by one from player_states
+char *player_images[] = {
+    "assets/" PLAYER_LIQUID ".qoi",
+    "assets/" PLAYER_SOLID ".qoi"
+};
+
 void t_player_all(Store *s, List *cd, List *e)
 {
     TASK_E(e, AppController, e_controller);
@@ -20,13 +26,12 @@ void t_player_all(Store *s, List *cd, List *e)
 
     if (input_key_status(cd_input, "state")) {
         i = cd_player->next;
-        state = player_states[i];
-        if (!strcmp(state, "")) {
+        cd_player->state = player_states[i];
+
+        if (!strcmp(player_states[++i], ""))
             i = 0;
-            state = player_states[i];
-        }
-        cd_player->state = state;
-        cd_player->next = ++i;
+        cd_player->next = i;
+
         input_key_hold(cd_input, "state");
     }
 
@@ -34,12 +39,14 @@ void t_player_all(Store *s, List *cd, List *e)
     old_state = cd_player->old_state;
 
     if (strcmp(state, old_state)) {
-        // dynamic_drop only drops component if in dynamic
         c = component_find(s->components, old_state);
         if (c) dynamic_drop(cd_dynamic, c->name);
         c = component_find(s->components, state);
         if (c) dynamic_append(cd_dynamic, c);
         cd_player->old_state = state;
+        cd_image->filename = player_images[cd_player->next];
+        SDL_DestroyTexture(cd_image->texture);
+        cd_image->texture = NULL;
     }
 
     if (input_key_status(cd_input, "left"))
