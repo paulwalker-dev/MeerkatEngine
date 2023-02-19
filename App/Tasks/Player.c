@@ -16,9 +16,19 @@ void t_player_all(Store *s, List *cd, List *e)
     TASK_CD(cd, GraphicsImage, cd_image);
     Component *c;
     char *state, *old_state;
+    int i;
 
-    cd_player->state = input_key_status(cd_input, "liquid") ?
-        "Liquid" : "Solid";
+    if (input_key_status(cd_input, "state")) {
+        i = cd_player->next;
+        state = player_states[i];
+        if (!strcmp(state, "")) {
+            i = 0;
+            state = player_states[i];
+        }
+        cd_player->state = state;
+        cd_player->next = ++i;
+        input_key_hold(cd_input, "state");
+    }
 
     state = cd_player->state;
     old_state = cd_player->old_state;

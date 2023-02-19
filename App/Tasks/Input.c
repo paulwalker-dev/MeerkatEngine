@@ -12,8 +12,12 @@ void check_keys(InputComponent *cd_input, SDL_Event event, int state)
     for (i = 0; i < cd_input->keys->length; ++i) {
         key = list_get(cd_input->keys, i);
 
-        if (key->code == event.key.keysym.sym)
-            key->state = state;
+        if (key->code == event.key.keysym.sym) {
+            if (key->state && !state)
+                key->state = state;
+            else if (!key->state && state)
+                key->state = state;
+        }
     }
 }
 

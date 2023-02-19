@@ -14,6 +14,8 @@ typedef struct {
 
 int input_key_status(InputComponent *i, char *name);
 
+void input_key_hold(InputComponent *input, char *name);
+
 void *cd_input_create();
 
 void cd_input_destroy(void *cd);

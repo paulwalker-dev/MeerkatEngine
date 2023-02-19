@@ -8,10 +8,24 @@ int input_key_status(InputComponent *input, char *name)
     for (i = 0; i < input->keys->length; ++i) {
         key = list_get(input->keys, i);
         if (!strcmp(key->name, name))
-            return key->state;
+            return key->state == 1;
     }
 
     return 0;
+}
+
+void input_key_hold(InputComponent *input, char *name)
+{
+    InputKey *key;
+    int i;
+
+    for (i = 0; i < input->keys->length; ++i) {
+        key = list_get(input->keys, i);
+        if (!strcmp(key->name, name)) {
+            key->state = 2;
+            break;
+        }
+    }
 }
 
 InputKey *input_key_create(char *name, SDL_Keycode code)
@@ -44,7 +58,7 @@ void *cd_input_create()
         SDLK_d
     ));
     list_append(cd->keys, input_key_create(
-        "liquid",
+        "state",
         SDLK_s
     ));
 
