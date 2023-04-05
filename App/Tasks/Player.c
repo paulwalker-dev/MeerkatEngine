@@ -9,8 +9,8 @@
 
 // Shift by one from player_states
 char *player_images[] = {
-    "assets/" PLAYER_LIQUID ".qoi",
-    "assets/" PLAYER_SOLID ".qoi"
+    "assets/" PLAYER_SOLID ".qoi",
+    "assets/" PLAYER_LIQUID ".qoi"
 };
 
 void t_player_all(Store *s, List *cd, List *e)
@@ -44,7 +44,7 @@ void t_player_all(Store *s, List *cd, List *e)
         c = component_find(s->components, state);
         if (c) dynamic_append(cd_dynamic, c);
         cd_player->old_state = state;
-        cd_image->filename = player_images[cd_player->next];
+        cd_image->filename = player_images[(cd_player->next + 1) % 2];
         SDL_DestroyTexture(cd_image->texture);
         cd_image->texture = NULL;
     }

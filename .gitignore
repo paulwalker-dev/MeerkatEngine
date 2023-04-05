@@ -1,4 +1,6 @@
 /build
 .direnv
 .vscode
-*.10x
+
+# Nix
+result

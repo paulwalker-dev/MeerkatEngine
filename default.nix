@@ -1,14 +1,9 @@
-{ pkgs ? import <nixpkgs> {} }:
-pkgs.stdenv.mkDerivation {
+{ stdenv, premake5, SDL2, SDL2_image, imagemagick, ... }:
+stdenv.mkDerivation {
   pname = "MeerkatEngine";
   version = "0.0.1";
   src = ./.;
-  buildInputs = with pkgs; [
-    premake5
-    SDL2
-    SDL2_image
-    imagemagick
-  ];
+  buildInputs = [ premake5 SDL2 SDL2_image imagemagick ];
   buildPhase = ''
     premake5 gmake
     make -C build config=release
