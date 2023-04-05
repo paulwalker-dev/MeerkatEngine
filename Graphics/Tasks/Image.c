@@ -1,11 +1,12 @@
 #include "Image.h"
 #include "EngineMantle.h"
-#include "EnginePhysics.h"
 #include <string.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
 #include "../Components/Image.h"
+#include "../Components/Position.h"
+#include "../Components/Size.h"
 #include "../Components/Window.h"
 
 void t_draw_image(Store *s, List *cd, List *e)

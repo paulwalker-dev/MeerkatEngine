@@ -47,23 +47,6 @@ project "EngineMantle"
         links "EngineMantle"
     end
 
-project "EnginePhysics"
-    kind "SharedLib"
-    language "C"
-
-    files {
-        "Physics/**.c",
-        "Physics/**.h"
-    }
-
-    useEngineCore()
-    useEngineMantle()
-
-    function useEnginePhysics()
-        includedirs "Physics/includes"
-        links "EnginePhysics"
-    end
-
 project "EngineGraphics"
     kind "SharedLib"
     language "C"
@@ -75,7 +58,6 @@ project "EngineGraphics"
 
     useEngineCore()
     useEngineMantle()
-    useEnginePhysics()
     useSDL2()
 
     function useEngineGraphics()
@@ -95,7 +77,6 @@ project "EngineApp"
 
     useEngineCore()
     useEngineMantle()
-    useEnginePhysics()
     useEngineGraphics()
 
     prelinkcommands {

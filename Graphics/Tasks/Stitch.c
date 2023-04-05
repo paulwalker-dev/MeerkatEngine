@@ -1,10 +1,10 @@
 #include "Stitch.h"
 #include "EngineMantle.h"
-#include "EnginePhysics.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
 #include "../Components/Image.h"
+#include "../Components/Size.h"
 #include "../Components/Stitch.h"
 #include "../Components/Window.h"
 

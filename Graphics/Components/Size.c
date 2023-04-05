@@ -4,8 +4,7 @@
 void *cd_size_create()
 {
     CD_INIT(Size, cd);
-    cd->w = 0;
-    cd->h = 0;
+    cd->w = cd->h = 0;
     return cd;
 }
 

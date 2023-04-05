@@ -4,6 +4,8 @@
 
 #include "Components/Events.h"
 #include "Components/Image.h"
+#include "Components/Position.h"
+#include "Components/Size.h"
 #include "Components/Stitch.h"
 #include "Components/Window.h"
 
@@ -18,6 +20,8 @@ void graphics_create(Box *b)
     box_component(b, c_graphics_image_create);
     box_component(b, c_graphics_stitch_create);
     box_component(b, c_graphics_window_create);
+    box_component(b, c_position_create);
+    box_component(b, c_size_create);
 
     box_archetype(b, "GraphicsData",
                   "GraphicsWindow",
