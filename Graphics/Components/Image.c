@@ -6,7 +6,7 @@ void *cd_graphics_image_create()
 {
     CD_INIT(GraphicsImage, cd);
 
-    cd->filename = "assets/unknown.qoi";
+    cd->filename = "assets/tiles/unknown.qoi";
     cd->surface = NULL;
     cd->texture = NULL;
     cd->flip = 0;
@@ -27,5 +27,5 @@ void cd_graphics_image_destroy(void *_cd)
 
 Component *c_graphics_image_create()
 COMPONENT3(GraphicsImage,
-           cd_graphics_image_create,
-           cd_graphics_image_destroy);
+        cd_graphics_image_create,
+        cd_graphics_image_destroy);
