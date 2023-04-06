@@ -8,16 +8,15 @@
 int main(int argv, char *argc[])
 {
     Box *b;
-    Entity *e_tile;
 
-    chdir(dirname(argc[0]));
+    if (chdir(dirname(argc[0]))) return 1;
     b = box_create();
 
     graphics_create(b);
     box_priority(b, 0);
 
     box_archetype(b, "Tile", "GraphicsImage", "Position", "Size", NULL);
-    e_tile = box_entity(b, "Tile");
+    box_entity(b, "Tile");
 
     graphics_loop(b);
     box_destroy(b);

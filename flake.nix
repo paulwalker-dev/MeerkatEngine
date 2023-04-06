@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    flake-utils.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, flake-utils }:
@@ -14,6 +13,17 @@
         packages = rec {
           MeerkatEngine = pkgs.callPackage ./default.nix { };
           default = MeerkatEngine;
+        };
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            premake5
+            SDL2
+            SDL2_image
+            imagemagick
+            gdb
+            nixfmt
+          ];
         };
       });
 }

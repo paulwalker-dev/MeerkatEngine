@@ -1,9 +1,11 @@
-{ stdenv, premake5, SDL2, SDL2_image, imagemagick, ... }:
+{ stdenv, lib, premake5, SDL2, SDL2_image, imagemagick, makeWrapper, toybox, ...
+}:
 stdenv.mkDerivation {
   pname = "MeerkatEngine";
   version = "0.0.1";
   src = ./.;
   buildInputs = [ premake5 SDL2 SDL2_image imagemagick ];
+  nativeBuildInputs = [ makeWrapper ];
   buildPhase = ''
     premake5 gmake
     make -C build config=release
@@ -13,5 +15,7 @@ stdenv.mkDerivation {
     mkdir -p $out/share
     cp -r build/bin/Release $out/share/MeerkatEngine
     cp App/script/MeerkatEngine $out/bin/MeerkatEngine
+    wrapProgram $out/bin/MeerkatEngine \
+      --prefix PATH : ${lib.makeBinPath [ toybox ]}
   '';
 }
