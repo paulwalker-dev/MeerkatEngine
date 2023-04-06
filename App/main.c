@@ -5,6 +5,10 @@
 #include <libgen.h>
 #include <unistd.h>
 
+#include "Components/Tile.h"
+
+#include "Tasks/Tile.h"
+
 int main(int argv, char *argc[])
 {
     Box *b;
@@ -15,8 +19,10 @@ int main(int argv, char *argc[])
     graphics_create(b);
     box_priority(b, 0);
 
-    box_archetype(b, "Tile", "GraphicsImage", "Position", "Size", NULL);
+    box_component(b, c_tile_create);
+    box_archetype(b, "Tile", "Tile", "Dynamic", "GraphicsImage", "Size", "Position", NULL);
     box_entity(b, "Tile");
+    box_task(b, t_update_tile, "Tile", "Dynamic", NULL);
 
     graphics_loop(b);
     box_destroy(b);

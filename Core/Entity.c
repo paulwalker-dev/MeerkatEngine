@@ -17,7 +17,7 @@ Entity *entity_create(Archetype *a)
     e->archetype = a;
     e->data = list_create();
 
-    // Allocate data for entity
+    /* Allocate data for entity */
     i = 0;
     components = e->archetype->components;
     while ((c = list_get(components, i++)) != NULL) {
@@ -36,8 +36,8 @@ void entity_destroy(Entity *e)
         cd = list_pop(e->data, 0);
         c = archetype_get(e->archetype, cd->name);
 
-        // It's possible for a component to be removed from an archetype after use.
-        // When this happens it is impossible to deallocate component data.
+        /* It's possible for a component to be removed from an archetype after use. */
+        /* When this happens it is impossible to deallocate component data. */
         if (c == NULL)
             panic("Entity in inconsistent state while deallocating");
 
@@ -60,7 +60,7 @@ Entity *entity_find(List *l, char *archetype)
     for (i = 0; i < l->length; ++i) {
         e = list_get(l, i);
 
-        // Remember strcmp returns 0 when identical
+        /* Remember strcmp returns 0 when identical */
         if (!strcmp(e->archetype->name, archetype))
             return e;
     }

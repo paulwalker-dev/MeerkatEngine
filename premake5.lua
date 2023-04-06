@@ -2,6 +2,8 @@ workspace "MeerkatEngine"
     configurations { "Debug", "Release" }
     location "build"
 
+    buildoptions { "-ansi" }
+
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"

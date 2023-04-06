@@ -32,7 +32,7 @@ Archetype *archetype_find(List *l, char *name)
     for (i = 0; i < l->length; ++i) {
         a = list_get(l, i);
 
-        // Remember strcmp returns 0 when identical
+        /* Remember strcmp returns 0 when identical */
         if (!strcmp(a->name, name))
             return a;
     }

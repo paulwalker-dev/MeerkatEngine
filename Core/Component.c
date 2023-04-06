@@ -27,7 +27,7 @@ Component *component_find(List *l, char *name)
     for (i = 0; i < l->length; ++i) {
         c = list_get(l, i);
 
-        // Remember strcmp returns 0 when identical
+        /* Remember strcmp returns 0 when identical */
         if (c && !strcmp(c->name, name))
             return c;
     }
@@ -76,7 +76,7 @@ ComponentData *component_data_find(List *l, char *name)
     for (i = 0; i < l->length; ++i) {
         cd = list_get(l, i);
 
-        // Remember strcmp returns 0 when identical
+        /* Remember strcmp returns 0 when identical */
         if (!strcmp(cd->name, name))
             return cd;
     }

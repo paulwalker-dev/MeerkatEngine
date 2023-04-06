@@ -22,6 +22,7 @@
             SDL2_image
             imagemagick
             gdb
+            valgrind
             nixfmt
           ];
         };

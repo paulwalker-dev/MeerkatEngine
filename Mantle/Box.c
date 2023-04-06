@@ -49,10 +49,10 @@ void box_archetype(Box *b, char *name, char *component, ...)
     Component *c;
     va_list ap;
 
-    // You cannot pass va_args in C
+    /* You cannot pass va_args in C */
     a = store_archetype(b->s, name, NULL);
 
-    // Workaround
+    /* Workaround */
     va_start(ap, component);
     while (component) {
         c = component_find(b->s->components, component);
