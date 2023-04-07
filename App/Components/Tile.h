@@ -3,7 +3,7 @@
 
 typedef struct {
     int x, y;
-    List *superposition;
+    int n;
 } TileComponent;
 
 void *cd_tile_create();

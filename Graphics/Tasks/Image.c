@@ -9,16 +9,12 @@
 #include "../Components/Size.h"
 #include "../Components/Window.h"
 
-void t_draw_image(Store *s, List *cd, List *e)
+void t_load_image(Store *s, List *cd, List *e)
 {
     TASK_E(e, GraphicsData, e_graphics);
     TASK_CD(cd, GraphicsImage, cd_image);
-    TASK_CD(cd, Position, cd_position);
     TASK_CD(cd, Size, cd_size);
     TASK_CD(e_graphics->data, GraphicsWindow, cd_window);
-
-    SDL_Rect rect;
-    SDL_Texture *texture;
 
     if (!cd_image->texture) {
         if (cd_image->surface)
@@ -30,7 +26,22 @@ void t_draw_image(Store *s, List *cd, List *e)
         cd_size->w = cd_image->surface->w;
         cd_size->h = cd_image->surface->h;
     }
-    
+}
+
+void t_draw_image(Store *s, List *cd, List *e)
+{
+    TASK_E(e, GraphicsData, e_graphics);
+    TASK_CD(cd, GraphicsImage, cd_image);
+    TASK_CD(cd, Position, cd_position);
+    TASK_CD(cd, Size, cd_size);
+    TASK_CD(e_graphics->data, GraphicsWindow, cd_window);
+
+    SDL_Rect rect;
+    SDL_Texture *texture;
+
+    if (!cd_image->texture)
+        return;
+
     rect.w = cd_size->w;
     rect.h = cd_size->h;
     rect.x = cd_position->x;
