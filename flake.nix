@@ -18,8 +18,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             premake5
-            SDL2
-            SDL2_image
+            raylib
             imagemagick
             gdb
             valgrind

@@ -1,15 +1,10 @@
 #pragma once
 #include "EngineCore.h"
-#include "SDL2/SDL.h"
 
 typedef struct {
-    int open;
-    int width, height;
-    SDL_Window *window;
-    SDL_Renderer *renderer;
-} GraphicsWindowComponent;
+} WindowComponent;
 
-void *cd_graphics_window_create();
-void cd_graphics_window_destroy(void *cd);
+void *cd_window_create();
+void cd_window_destroy(void *cd);
 
-Component *c_graphics_window_create();
+Component *c_window_create();

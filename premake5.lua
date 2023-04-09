@@ -12,13 +12,6 @@ workspace "MeerkatEngine"
         defines { "NDEBUG" }
         optimize "On"
 
-function useSDL2()
-    buildoptions {
-        "$(shell sdl2-config --cflags)"
-    }
-    links { "SDL2", "SDL2_image", "m" }
-end
-
 project "EngineCore"
     kind "SharedLib"
     language "C"
@@ -60,12 +53,12 @@ project "EngineGraphics"
 
     useEngineCore()
     useEngineMantle()
-    useSDL2()
 
+    links "raylib"
     function useEngineGraphics()
         includedirs "Graphics/includes"
         links "EngineGraphics"
-        useSDL2()
+        links "raylib"
     end
 
 project "EngineApp"
