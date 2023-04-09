@@ -1,9 +1,9 @@
-{ stdenv, lib, premake5, raylib, imagemagick, makeWrapper, toybox, ... }:
+{ stdenv, lib, curl, premake5, raylib, imagemagick, makeWrapper, toybox, ... }:
 stdenv.mkDerivation {
   pname = "MeerkatEngine";
   version = "0.0.1";
   src = ./.;
-  buildInputs = [ premake5 raylib imagemagick ];
+  buildInputs = [ premake5 raylib imagemagick curl ];
   nativeBuildInputs = [ makeWrapper ];
   buildPhase = ''
     premake5 gmake

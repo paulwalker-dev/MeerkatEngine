@@ -1,5 +1,6 @@
 #pragma once
 #include "lib/List.h"
+#include <stdlib.h>
 
 #define CD_INIT(name, var) \
     _CD_INIT(name ## Component, var)

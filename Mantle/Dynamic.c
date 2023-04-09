@@ -75,5 +75,5 @@ void cd_dynamic_destroy(void *cd)
 
 Component *c_dynamic_create()
 COMPONENT3(Dynamic,
-           cd_dynamic_create,
-           cd_dynamic_destroy);
+    cd_dynamic_create,
+    cd_dynamic_destroy);

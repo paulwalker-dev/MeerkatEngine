@@ -18,7 +18,7 @@ void graphics_loop(Box *b)
     hue = 0;
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(ColorFromHSV(++hue % 360, 1, 1));
+        ClearBackground(RAYWHITE);
         box_update(b);
         EndDrawing();
     }

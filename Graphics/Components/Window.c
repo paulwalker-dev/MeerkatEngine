@@ -1,5 +1,4 @@
 #include "Window.h"
-#include <stdlib.h>
 #include <raylib.h>
 
 void *cd_window_create()
@@ -10,10 +9,8 @@ void *cd_window_create()
     return cd;
 }
 
-void cd_window_destroy(void *_cd)
+void cd_window_destroy(void *cd)
 {
-    WindowComponent *cd;
-    cd = _cd;
     CloseWindow();
     free(cd);
 }

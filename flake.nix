@@ -19,6 +19,7 @@
           buildInputs = with pkgs; [
             premake5
             raylib
+            curl
             imagemagick
             gdb
             valgrind

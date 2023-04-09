@@ -1,5 +1,4 @@
 #include "FPS.h"
-#include <stdlib.h>
 #include <raylib.h>
 
 void *cd_fps_create()

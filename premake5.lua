@@ -2,7 +2,7 @@ workspace "MeerkatEngine"
     configurations { "Debug", "Release" }
     location "build"
 
-    buildoptions { "-ansi" }
+    buildoptions { "-std=c99" }
 
     filter "configurations:Debug"
         defines { "DEBUG" }
