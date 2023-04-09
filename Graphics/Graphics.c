@@ -15,11 +15,8 @@ void graphics_loop(Box *b)
 {
     while (!WindowShouldClose()) {
         BeginDrawing();
-
         ClearBackground(RAYWHITE);
-
-        DrawText("MeerkatEngine", 32, 32, 20, LIGHTGRAY);
-
+        box_update(b);
         EndDrawing();
     }
 }
