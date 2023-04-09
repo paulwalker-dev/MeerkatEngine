@@ -13,9 +13,12 @@ void graphics_create(Box *b)
 
 void graphics_loop(Box *b)
 {
+    int hue;
+
+    hue = 0;
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(ColorFromHSV(++hue % 360, 1, 1));
         box_update(b);
         EndDrawing();
     }
