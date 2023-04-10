@@ -1,5 +1,4 @@
-self: super:
-{
+self: super: {
   raylib = super.raylib.overrideAttrs (old: rec {
     name = "${old.pname}-${version}";
     version = "4.5.0";

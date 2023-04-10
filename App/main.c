@@ -4,20 +4,10 @@
 #include <libgen.h>
 #include <unistd.h>
 
-#include "Components/FPS.h"
-
-#include "Tasks/FPS.h"
-
-void box_app(Box *b)
+void enable_fps(Box *b)
 {
-    Entity *e_app;
-
-    box_component(b, c_fps_create);
-    box_task(b, t_fps, "FPS", NULL);
-
-    box_archetype(b, "App", "FPS", NULL);
-    e_app = box_entity(b, "App");
-    TASK_CD(e_app->data, FPS, cd_fps);
+    TASK_E(b->s->entities, Graphics, e_graphics);
+    TASK_CD(e_graphics->data, FPS, cd_fps);
     cd_fps->enabled = 1;
 }
 
@@ -31,7 +21,7 @@ int main(int argv, char *argc[])
     graphics_create(b);
     box_priority(b, 0);
 
-    box_app(b);
+    enable_fps(b);
 
     graphics_loop(b);
     box_destroy(b);

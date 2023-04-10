@@ -55,10 +55,12 @@ project "EngineGraphics"
     useEngineMantle()
 
     links "raylib"
+    links "raygui"
     function useEngineGraphics()
         includedirs "Graphics/includes"
         links "EngineGraphics"
         links "raylib"
+        links "raygui"
     end
 
 project "EngineApp"
@@ -73,8 +75,6 @@ project "EngineApp"
     useEngineCore()
     useEngineMantle()
     useEngineGraphics()
-    includedirs "external/raygui/src"
-    links { "m" }
 
     prelinkcommands {
         "../App/assets/convert.sh %{cfg.buildtarget.directory}"
