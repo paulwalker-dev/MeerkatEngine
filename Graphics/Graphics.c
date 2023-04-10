@@ -22,10 +22,23 @@ void graphics_create(Box *b)
 
 void graphics_loop(Box *b)
 {
-    while (!WindowShouldClose()) {
+    TASK_E(b->s->entities, Graphics, e_graphics);
+    TASK_CD(e_graphics->data, Window, cd_window);
+
+    Rectangle rect;
+
+    rect.width = 96;
+    rect.height = 32;
+    while (!cd_window->should_close) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         box_update(b);
+
+        rect.x = GetRenderWidth() - rect.width - 8;
+        rect.y = GetRenderHeight() - rect.height - 8;
+        cd_window->should_close |= GuiButton(rect, "Close");
+
         EndDrawing();
+        cd_window->should_close |= WindowShouldClose();
     }
 }

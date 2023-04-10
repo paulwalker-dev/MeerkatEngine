@@ -5,6 +5,7 @@
 #define WINDOW_HEIGHT 480
 
 typedef struct {
+    int should_close;
 } WindowComponent;
 
 void *cd_window_create();

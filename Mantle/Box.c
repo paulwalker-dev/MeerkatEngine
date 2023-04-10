@@ -29,13 +29,13 @@ void box_update(Box *b)
     Task *t;
     int i, j;
 
-    for (i = 0; i < 4; ++i) {
+    // for (i = 0; i < 4; ++i) {
         for (j = 0; j < b->tasks->length; ++j) {
             t = list_get(b->tasks, j);
-            if (t->priority != i) continue;
+            // if (t->priority != i) continue;
             task_run(b->s, t, b->s->entities);
         }
-    }
+    // }
 }
 
 void box_component(Box *b, Component *(* init_c)())
