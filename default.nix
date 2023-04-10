@@ -1,5 +1,4 @@
-{ stdenv, lib, premake5, raylib, raygui, makeWrapper, toybox, ...
-}:
+{ stdenv, lib, premake5, raylib, raygui, makeWrapper, toybox, ... }:
 stdenv.mkDerivation {
   pname = "MeerkatEngine";
   version = "0.0.1";
