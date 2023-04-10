@@ -8,18 +8,21 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        packages = rec {
+    let pkgs = import nixpkgs { inherit system; overlays = [
+      (import ./overlay.nix)
+    ];};
+      in rec {
+        packages = {
+          rguilayout = pkgs.callPackage ./external/rguilayout.nix { };
           MeerkatEngine = pkgs.callPackage ./default.nix { };
-          default = MeerkatEngine;
+          default = packages.MeerkatEngine;
         };
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            packages.rguilayout
             premake5
             raylib
-            curl
             imagemagick
             gdb
             valgrind

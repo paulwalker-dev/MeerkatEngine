@@ -4,7 +4,7 @@
 void *cd_window_create()
 {
     CD_INIT(Window, cd);
-    InitWindow(680, 480, "MeerkatEngine");
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "MeerkatEngine");
     SetTargetFPS(60);
     return cd;
 }

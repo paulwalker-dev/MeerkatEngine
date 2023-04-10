@@ -1,6 +1,9 @@
 #pragma once
 #include "EngineCore.h"
 
+#define WINDOW_WIDTH 680
+#define WINDOW_HEIGHT 480
+
 typedef struct {
 } WindowComponent;
 

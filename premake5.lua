@@ -2,7 +2,7 @@ workspace "MeerkatEngine"
     configurations { "Debug", "Release" }
     location "build"
 
-    buildoptions { "-std=c99" }
+    buildoptions { "-Wno-unused-result" }
 
     filter "configurations:Debug"
         defines { "DEBUG" }
@@ -73,6 +73,8 @@ project "EngineApp"
     useEngineCore()
     useEngineMantle()
     useEngineGraphics()
+    includedirs "external/raygui/src"
+    links { "m" }
 
     prelinkcommands {
         "../App/assets/convert.sh %{cfg.buildtarget.directory}"
