@@ -75,7 +75,3 @@ project "EngineApp"
     useEngineCore()
     useEngineMantle()
     useEngineGraphics()
-
-    prelinkcommands {
-        "../App/assets/convert.sh %{cfg.buildtarget.directory}"
-    }

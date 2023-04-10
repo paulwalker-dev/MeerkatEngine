@@ -29,7 +29,7 @@ void box_update(Box *b)
     Task *t;
     int i, j;
 
-    for (i = 0; i < 10; ++i) {
+    for (i = 0; i < 4; ++i) {
         for (j = 0; j < b->tasks->length; ++j) {
             t = list_get(b->tasks, j);
             if (t->priority != i) continue;

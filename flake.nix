@@ -23,12 +23,9 @@
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            packages.raygui
             premake5
             raylib
-            imagemagick
-            gdb
-            valgrind
+            packages.raygui
             nixfmt
           ];
         };
