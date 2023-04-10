@@ -4,6 +4,10 @@
 #include <libgen.h>
 #include <unistd.h>
 
+#include <raylib.h>
+#include <raygui.h>
+#include <styles/jungle.h>
+
 void enable_fps(Box *b)
 {
     TASK_E(b->s->entities, Graphics, e_graphics);
@@ -21,6 +25,7 @@ int main(int argv, char *argc[])
     graphics_create(b);
     box_priority(b, 0);
 
+    GuiLoadStyleJungle();
     enable_fps(b);
 
     graphics_loop(b);

@@ -17,5 +17,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/lib
     cp src/raygui.h $out/include
     cp libraygui.so $out/lib
+
+    mkdir -p $out/include/styles
+    cp styles/*/*.h $out/include/styles
   '';
 }

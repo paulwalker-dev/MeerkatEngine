@@ -31,12 +31,12 @@ void graphics_loop(Box *b)
     rect.height = 32;
     while (!cd_window->should_close) {
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
         box_update(b);
 
         rect.x = GetRenderWidth() - rect.width - 8;
         rect.y = GetRenderHeight() - rect.height - 8;
-        cd_window->should_close |= GuiButton(rect, "Close");
+        cd_window->should_close |= GuiButton(rect, GuiIconText(ICON_EXIT, "Close"));
 
         EndDrawing();
         cd_window->should_close |= WindowShouldClose();
