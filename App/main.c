@@ -6,7 +6,7 @@
 
 #include <raylib.h>
 #include <raygui.h>
-#include <styles/jungle.h>
+#include <styles/cyber.h>
 
 void enable_fps(Box *b)
 {
@@ -25,7 +25,7 @@ int main(int argv, char *argc[])
     graphics_create(b);
     box_priority(b, 0);
 
-    GuiLoadStyleJungle();
+    GuiLoadStyleCyber();
     enable_fps(b);
 
     graphics_loop(b);

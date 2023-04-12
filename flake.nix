@@ -22,7 +22,7 @@
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ premake5 raylib packages.raygui nixfmt ];
+          buildInputs = with pkgs; [ premake5 raylib packages.raygui ripgrep nixfmt ];
         };
       });
 }

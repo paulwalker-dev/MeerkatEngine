@@ -9,7 +9,7 @@ typedef struct ListNode {
 
 /**
  * Linked List
- * @attention Do **NOT** deallocate data in a list
+ * @attention Do **NOT** use free() on a List
  * @param length Size of the list (Starts at one)
  */
 typedef struct {
@@ -48,7 +48,6 @@ void *list_get(List *l, int index);
 
 /**
  * Appends data to end of list
- * @attention Do **NOT** deallocate data in a list, for more info see <List>
  * @param data Data to store in list
  * @returns Index of new element in list
  */

@@ -28,22 +28,3 @@ List *entity_data_get(Entity *e)
 
     return data;
 }
-
-List *component_list_create(Store *s, char *component, ...)
-{
-    Component *c;
-    List *l;
-    va_list ap;
-
-    l = list_create();
-
-    va_start(ap, component);
-    while (component) {
-        c = component_find(s->components, component);
-        list_append(l, c);
-        component = va_arg(ap, char *);
-    }
-    va_end(ap);
-
-    return l;
-}
